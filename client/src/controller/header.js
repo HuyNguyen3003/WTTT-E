@@ -3,15 +3,11 @@ import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { useRouter } from "next/router";
 
 export default function Headers() {
-  const router = useRouter();
-  const currentPath = router.asPath;
-  console.log(currentPath);
   return (
     <>
-      <div className="he1">
+      <div className="he1 w-full">
         <div className="container h-28 bg-gradient-to-r from-cyan-200 to-blue-200 flex justify-between items-center">
           <div className="logo ml-20 pl-8 pt-2">
             <Link href="/">
@@ -66,11 +62,7 @@ export default function Headers() {
 
             <div className="relative group cursor-pointer">
               <p className="pl-2 pt-1">TẤT CẢ DANH MỤC</p>
-              <ul
-                className={`group-hover:block absolute bg-white p-2 mt-2 border border-gray-300 rounded ${
-                  currentPath !== "/" ? "hidden" : ""
-                }`}
-              >
+              <ul className="hidden group-hover:block absolute bg-white p-2 mt-2 border border-gray-300 rounded ">
                 <Link
                   href="/id1"
                   className="text-black"
