@@ -30,7 +30,7 @@ export default function LienHe() {
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
-                  for="name"
+                  className="name"
                 >
                   Họ và Tên
                 </label>
@@ -46,7 +46,7 @@ export default function LienHe() {
                   {" "}
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="email"
+                    htmlFor="email"
                   >
                     Email
                   </label>
@@ -60,7 +60,7 @@ export default function LienHe() {
                 <div className="">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="email"
+                    htmlFor="email"
                   >
                     Số Điện Thoại
                   </label>
@@ -75,7 +75,7 @@ export default function LienHe() {
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
-                  for="address"
+                  htmlFor="address"
                 >
                   Địa chỉ
                 </label>
@@ -89,7 +89,7 @@ export default function LienHe() {
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
-                  for="data"
+                  htmlFor="data"
                 >
                   Nội dung
                 </label>

@@ -3,12 +3,45 @@ import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { useRouter } from "next/router";
 
 export default function Headers() {
+  const router = useRouter();
+  const currentPath = router.pathname;
+
   return (
     <>
       <div className="he1 w-full">
-        <div className="container h-28 bg-gradient-to-r from-cyan-200 to-blue-200 flex justify-between items-center">
+        <div className=" bg-slate-50 ">
+          <div className="hotline flex p-2  justify-end ">
+            <p className="text-red-700 animate-pulse">Hotline: - 0918026532</p>
+            <div className="w-1/5 flex">
+              <Image
+                src="/img/vi.png"
+                alt="Vietnamese Flag"
+                width={30}
+                height={20}
+                className="ml-2"
+              />
+              <Image
+                src="/img/en.png"
+                alt="English Flag"
+                width={30}
+                height={20}
+                className="ml-1"
+              />
+              <Image
+                src="/img/cn.png"
+                alt="Chinese Flag"
+                width={30}
+                height={20}
+                className="ml-1"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="h-28 rounded  bg-gradient-to-r from-cyan-200 to-blue-200 flex justify-between items-center">
           <div className="logo ml-20 pl-8 pt-2">
             <Link href="/">
               <Image
@@ -55,23 +88,43 @@ export default function Headers() {
           </div>
         </div>
       </div>
-      <div className="he2">
-        <div className="w-4/5 mx-auto flex justify-between">
-          <div className="w-2/3  flex ">
-            <HiOutlineMenuAlt3 size={24} className="text-black pl-2 pt-1" />
+      <div className="he2 ">
+        <div className="w-4/5 mx-auto flex justify-between ">
+          <div className="w-2/3  flex p-2  ">
+            <HiOutlineMenuAlt3 size={24} className="text-black pl-2 pt-2" />
 
-            <div className="relative group cursor-pointer">
-              <p className="pl-2 pt-1">TẤT CẢ DANH MỤC</p>
-              <ul className="hidden group-hover:block absolute bg-white p-2 mt-2 border border-gray-300 rounded ">
+            <div
+              className={`${
+                currentPath === "/"
+                  ? "relative group cursor-pointer  pr-1"
+                  : "relative group cursor-pointer pb-4 pr-1"
+              }   `}
+            >
+              <p
+                className={`${
+                  currentPath === "/"
+                    ? "pl-2 pt-1 flex justify-center items-center border-l-2   "
+                    : "pl-2 pt-1 flex justify-center items-center  border-l-2 pt-2"
+                }   `}
+              >
+                TẤT CẢ DANH MỤC
+              </p>
+              <ul
+                className={`${
+                  currentPath === "/"
+                    ? "  w-40 group-hover:block absolute bg-white  border-l-2  pr-2 w-40"
+                    : "hidden group-hover:block absolute bg-white p-2  border-l-2   w-48"
+                }   `}
+              >
                 <Link
-                  href="/id1"
+                  href="/product"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
                   <li className=" w-full p-2">Motor cửa cuốn</li> <hr />
                 </Link>
                 <Link
-                  href="/id1"
+                  href="/product"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -79,7 +132,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/id1"
+                  href="/product"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -87,7 +140,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/id1"
+                  href="/product"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -95,7 +148,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/id1"
+                  href="/product"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -105,7 +158,7 @@ export default function Headers() {
               </ul>
             </div>
           </div>
-          <div className="w-1/3 bg-green-300 p-2">
+          <div className="w-1/3  bg-white p-2 flex justify-center items-center">
             <Link
               href="/"
               className="text-black"
@@ -114,7 +167,7 @@ export default function Headers() {
               TRANG CHỦ
             </Link>
           </div>
-          <div className="w-1/3 bg-pink-300 p-2">
+          <div className="w-1/3  bg-white p-2 flex justify-center items-center">
             <Link
               href="/gioithieu"
               className="text-black"
@@ -123,7 +176,7 @@ export default function Headers() {
               GIỚI THIỆU
             </Link>
           </div>
-          <div className="w-1/3 bg-yellow-300 p-2">
+          <div className="w-1/3  bg-white p-2 flex justify-center items-center">
             <Link
               href="/lienhe"
               className="text-black"
@@ -132,16 +185,8 @@ export default function Headers() {
               LIÊN HỆ
             </Link>
           </div>
-          <div className="w-2/3 bg-gray-300  p-2 pl-4 ">
-            <Link
-              href="/combotietkiem"
-              className="text-black"
-              style={{ textDecoration: "none" }}
-            >
-              COMBO TIẾT KIỆM
-            </Link>
-          </div>
-          <div className="w-1/3 bg-purple-300 p-2">
+
+          <div className="w-1/3 bg-white p-2 flex justify-center items-center">
             <Link
               href="/tintuc"
               className="text-black"
@@ -150,7 +195,8 @@ export default function Headers() {
               TIN TỨC
             </Link>
           </div>
-          <div className="w-1/3 bg-indigo-300 p-2">
+
+          <div className="w-1/3  bg-white p-2 flex justify-center items-center">
             <Link
               href="/tuyendung"
               className="text-black"
@@ -158,6 +204,54 @@ export default function Headers() {
             >
               TUYỂN DỤNG
             </Link>
+          </div>
+          <div className="w-2/3  flex   bg-white  ">
+            <div className="relative group cursor-pointer      ">
+              <p className="p-4 pl-8  flex justify-center items-center">
+                TRANG WEB LIÊN KẾT
+              </p>
+              <ul
+                className={`${
+                  currentPath === "/"
+                    ? "hidden group-hover:block absolute bg-white   border-l-2 w-60 z-10 opacity-80 "
+                    : "hidden group-hover:block absolute bg-white   border-l-2 w-60 z-10 "
+                }   `}
+              >
+                <li className="w-full  p-2">
+                  <Link
+                    href="https://motortanthanhtai.com/"
+                    className="text-black"
+                    target="_blank"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Motor
+                  </Link>
+                  <hr />
+                </li>
+                <li className="w-full p-2">
+                  <Link
+                    href="https://mayphatdientanthanhtai.com/"
+                    className="text-black"
+                    target="_blank"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Máy Phát điện
+                  </Link>
+                  <hr />
+                </li>
+                <li className="w-full p-2">
+                  <Link
+                    href="https://maybomnuocadelino.vn/"
+                    className="text-black"
+                    target="_blank"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Máy bơm nước
+                  </Link>
+                  <hr />
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
