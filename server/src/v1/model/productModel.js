@@ -7,7 +7,7 @@ const detailSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  type: { type: String },
+  title: String,
   name: String,
   img: String,
   details: [detailSchema], // Sử dụng Array để lưu nhiều chi tiết

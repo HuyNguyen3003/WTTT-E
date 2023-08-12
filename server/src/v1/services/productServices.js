@@ -10,22 +10,39 @@ let getAll = async () => {
     }
   });
 };
+
 let update = async (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const res = await product.findOneAndUpdate(
-        { _id: data.id },
-        { type: data.type },
-        { name: data.name },
-        { img: data.img },
-        { details: data.details },
-        { new: true }
+  // console.log(data);
+  try {
+    if (!data.id) {
+      // Nếu không có data.id, tạo một bản ghi mới
+      const newProduct = new product({
+        title: data.title,
+        name: data.name,
+        img: data.img,
+        details: data.details,
+      });
+
+      const savedProduct = await newProduct.save();
+      return savedProduct;
+    } else {
+      // Nếu có data.id, cập nhật bản ghi hiện có
+      const updatedProduct = await product.findByIdAndUpdate(
+        data.id,
+        {
+          type: data.title,
+          name: data.name,
+          img: data.img,
+          details: data.details,
+        },
+        { new: true } // Lấy giá trị mới sau khi cập nhật
       );
-      resolve(res);
-    } catch (e) {
-      reject(e);
+
+      return updatedProduct;
     }
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 let Delete = async (data) => {

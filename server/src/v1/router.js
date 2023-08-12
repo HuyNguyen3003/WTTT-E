@@ -7,8 +7,6 @@ const pageController = require("./controllers/pageController");
 let initWebRoutes = (app) => {
   //
   router.post("/login", adminController.login);
-  router.post("/update", adminController.update);
-  router.post("/forget", adminController.forget);
 
   router.get("/product", productController.getAll);
   router.post("/product/update", productController.update);
