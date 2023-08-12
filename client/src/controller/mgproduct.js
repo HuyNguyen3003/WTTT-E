@@ -8,10 +8,14 @@ export default function mgproduct() {
   const [category, setCategory] = useState("");
   const [productName, setProductName] = useState("");
   const [allData, setallData] = useState([]);
+  let [stringObject, setstringObject] = useState("");
 
-  useEffect(async () => {
+  const handUseE = async () => {
     const res = await axios.get("http://localhost:5000/product");
     setallData(res.data);
+  };
+  useEffect(async () => {
+    handUseE();
   }, []);
 
   const toggleForm = () => {
@@ -57,17 +61,20 @@ export default function mgproduct() {
       formData.title = category;
       formData.name = productName;
       formData.img = await selectedImage;
-      // console.log(formData);
 
-      const data = await axios.post(
+      const res = await axios.post(
         "http://localhost:5000/product/update",
         formData
       );
-      console.log(data);
 
+      const arr = allData;
+      arr.push(res.data);
+      setallData(arr);
       setCategory("");
       setSelectedImage("");
       setProductName("");
+      setShowForm(!showForm);
+
       // Gửi dữ liệu thành công, thực hiện các hành động khác (thông báo, chuyển hướng, ...)
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -79,6 +86,67 @@ export default function mgproduct() {
     onDrop,
     accept: "image/jpeg, image/png, image/gif", // Cho phép tải lên các định dạng hình ảnh phổ biến
   });
+
+  const delProduct = async (dataId) => {
+    await axios.post("http://localhost:5000/product/delete", { dataId });
+    setallData((prevData) => prevData.filter((item) => item._id !== dataId));
+  };
+
+  const ImageComponent = ({ base64Data }) => {
+    return <img src={base64Data} alt="Base64 Image" />;
+  };
+
+  // handle string to Object
+  const handleStringToObject = (inputString) => {
+    const pairs = inputString.split(" ");
+    const detailsArray = [];
+    let currentDetail = {};
+
+    pairs.forEach((pair) => {
+      const [key, value] = pair.split(":");
+
+      if (key === "name") {
+        currentDetail.name = value;
+      } else if (key === "price") {
+        currentDetail.price = value;
+      } else if (key === "details") {
+        currentDetail.details = value;
+        detailsArray.push(currentDetail);
+        currentDetail = {};
+      }
+    });
+
+    return detailsArray;
+  };
+
+  // handle obj to String
+  const handleObjectToString = (obj) => {
+    const resultString = obj
+      .map((detail) => {
+        return `name:${detail.name} price:${detail.price} details:${detail.details}`;
+      })
+      .join(" ");
+
+    return resultString;
+  };
+
+  const ShowObjToString = (obj) => {
+    setstringObject(handleObjectToString(obj));
+  };
+  const handleInputChange = (event) => {
+    setstringObject(event.target.value);
+  };
+
+  const handleUpdate = async (item) => {
+    const data = {};
+    data._id = item._id;
+    data.name = item.name;
+    data.img = item.img;
+    data.title = item.title;
+    data.details = handleStringToObject(stringObject);
+
+    await axios.post("http://localhost:5000/product/update", data);
+  };
 
   return (
     <div>
@@ -95,13 +163,13 @@ export default function mgproduct() {
             Thêm
           </button>
           {/* Sua xoa */}
-          <table class="table-fixed">
+          <table className="table-fixed">
             <thead>
               <tr>
                 <th>Type</th>
                 <th>Name</th>
                 <th>Image</th>
-                <th>Detail</th>
+
                 <th>Update</th>
                 <th>Del</th>
               </tr>
@@ -114,10 +182,38 @@ export default function mgproduct() {
                     <tr key={item._id}>
                       <td className="px-20">{item.title}</td>
                       <td className="px-20">{item.name}</td>
-                      <td className="px-20">image</td>
-                      <td className="px-20">{item.details}</td>
-                      <td className="px-20">x</td>
-                      <td className="px-20">x</td>
+                      <td className="px-20">
+                        <ImageComponent base64Data={item.img} />
+                      </td>
+
+                      <td className="px-20 cursor-pointer">
+                        <div className="flex">
+                          <div
+                            className="px-10"
+                            onClick={() => {
+                              handleUpdate(item);
+                            }}
+                          >
+                            x
+                          </div>
+                          <div onClick={() => ShowObjToString(item.details)}>
+                            o
+                          </div>
+                        </div>
+
+                        <input
+                          type="text"
+                          className=" border border-black rounded px-3 py-2"
+                          value={stringObject}
+                          onChange={handleInputChange}
+                        />
+                      </td>
+                      <td
+                        onClick={() => delProduct(item)}
+                        className="px-20 cursor-pointer"
+                      >
+                        <div>x</div>
+                      </td>
                     </tr>
                   );
                 })}

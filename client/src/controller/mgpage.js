@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function mgpage() {
-  return <div>mgpage</div>;
+  return <div>123</div>;
 }

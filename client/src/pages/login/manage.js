@@ -8,7 +8,7 @@ export default function index() {
   return (
     <>
       <div className="flex m-20">
-        <table class="table-auto mx-20   ">
+        <table className="table-auto mx-20   ">
           <thead>
             <tr>
               <th>Danh mục quản lí</th>
@@ -23,7 +23,7 @@ export default function index() {
             </tr>
           </tbody>
         </table>
-        <div>{idSet === 2 ? <MgPage /> : <MgProduct />}</div>
+        {idSet === 2 ? <MgPage /> : <MgProduct />}
       </div>
     </>
   );

@@ -26,6 +26,7 @@ let update = async (req, res) => {
 let Delete = async (req, res) => {
   try {
     const data = req.body;
+
     const respone = await productServices.Delete(data);
     if (respone) return res.json(respone);
     else return res.json("fail");

@@ -8,14 +8,15 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
+  const handleUseE = () => {
     const re = localStorage.getItem("login");
     if (re === "true") {
       // Chuyển hướng nếu thỏa mãn
       router.push("/login/manage");
     }
-
-    console.log(re);
+  };
+  useEffect(() => {
+    handleUseE();
   }, []); // Chạy một lần khi component được mount
 
   const handleUsernameChange = (e) => {

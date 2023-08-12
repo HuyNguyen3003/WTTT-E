@@ -10,11 +10,11 @@ let initWebRoutes = (app) => {
 
   router.get("/product", productController.getAll);
   router.post("/product/update", productController.update);
-  router.post("/delete", productController.Delete);
+  router.post("/product/delete", productController.Delete);
 
-  router.get("/product", pageController.getAll);
-  router.post("/product/update", pageController.update);
-  router.post("/delete", pageController.Delete);
+  router.get("/page", pageController.getAll);
+  router.post("/page/update", pageController.update);
+  router.post("/page/delete", pageController.Delete);
 
   return app.use("/", router);
 };

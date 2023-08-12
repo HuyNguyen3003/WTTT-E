@@ -14,7 +14,7 @@ let getAll = async () => {
 let update = async (data) => {
   // console.log(data);
   try {
-    if (!data.id) {
+    if (!data._id) {
       // Nếu không có data.id, tạo một bản ghi mới
       const newProduct = new product({
         title: data.title,
@@ -28,7 +28,7 @@ let update = async (data) => {
     } else {
       // Nếu có data.id, cập nhật bản ghi hiện có
       const updatedProduct = await product.findByIdAndUpdate(
-        data.id,
+        data._id,
         {
           type: data.title,
           name: data.name,
@@ -45,10 +45,10 @@ let update = async (data) => {
   }
 };
 
-let Delete = async (data) => {
+let Delete = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = product.deleteOne({ _id: data.id });
+      const res = product.deleteOne({ _id: id.dataId });
       resolve(res);
     } catch (e) {
       reject(e);
