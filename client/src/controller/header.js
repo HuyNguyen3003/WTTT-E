@@ -12,8 +12,8 @@ export default function Headers() {
   return (
     <>
       <div className="he1 w-full">
-        <div className=" bg-slate-50 ">
-          <div className="hotline flex p-2  justify-end ">
+        <div className="h-28 rounded  bg-gradient-to-r bg-slate-50 flex justify-between items-center">
+          <div className="hotline flex   justify-end ">
             <p className="text-red-700 animate-pulse">Hotline: - 0918026532</p>
             <div className="w-1/5 flex">
               <Image
@@ -39,10 +39,7 @@ export default function Headers() {
               />
             </div>
           </div>
-        </div>
-
-        <div className="h-28 rounded  bg-gradient-to-r from-cyan-200 to-blue-200 flex justify-between items-center">
-          <div className="logo ml-20 pl-8 pt-2">
+          <div className="logo ml-20  pt-2">
             <Link href="/">
               <Image
                 src="/img/00014_logo_vi.png"
