@@ -59,7 +59,7 @@ export default function Product(props) {
   ];
 
   return (
-    <Container className=" pt-10 px-40  ">
+    <Container className=" pt-10 px-20  ">
       <div className="mb-4 font-bold text-lg text-red-500 ">{props.name}</div>
       <Carousel
         swipeable={false}
@@ -78,7 +78,7 @@ export default function Product(props) {
         deviceType={props.deviceType}
         dotListClass="custom-dot-list-style"
         itemClass="w-2/4 mx-auto carousel-item-padding-40-px"
-        className=" border-t-2 border-b-2 border-black"
+        className=" border-t-2 border-b-2  shadow-md"
       >
         {products.map((product, index) => (
           <div key={index} className="p-8 cursor-pointer ">

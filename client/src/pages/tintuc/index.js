@@ -14,7 +14,7 @@ export default function TinTuc() {
         />
       </Head>
 
-      <span className="flex justify-center p-5 ml-48 mr-48  mt-10 mb-10 bg-lime-400">
+      <span className="text-red-600 flex text-xl justify-center p-5 ml-48 mr-48  mt-10 mb-10 hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105">
         TIN TỨC
       </span>
 

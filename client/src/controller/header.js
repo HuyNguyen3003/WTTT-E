@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
+
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Headers() {
   const router = useRouter();
   const currentPath = router.pathname;
+  const [dataSearch, setdataSearch] = useState("");
 
   return (
     <>
@@ -53,12 +55,16 @@ export default function Headers() {
             <div className="flex">
               <input
                 type="text"
-                placeholder="Tìm kiếm..."
-                className=" px-8 py-2 border rounded-l-lg focus:outline-none"
+                placeholder="Nhập tên sản phẩm muốn tìm kiếm"
+                className=" px-8 py-2 border rounded-l-lg focus:outline-none w-80"
+                value={dataSearch}
+                onChange={(e) => setdataSearch(e.target.value)}
               />
-              <button className=" px-4 py-2 bg-blue-500 text-white rounded-r-lg">
-                Tìm
-              </button>
+              <Link href={`/product/search?name=${dataSearch}`}>
+                <button className=" px-4 py-2 bg-blue-500 text-white rounded-r-lg">
+                  Tìm
+                </button>
+              </Link>
             </div>
           </div>
           <div className="help flex ">
@@ -79,8 +85,10 @@ export default function Headers() {
           </div>
           <div className="icon pr-32">
             <div className="flex">
-              <FaShoppingCart size={24} color="blue" className="mr-8" />
-              <FaUser size={24} color="blue" />
+              <FaShoppingCart size={48} color="red" />
+              <div className="  p-2 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center mt-8  ">
+                1
+              </div>
             </div>
           </div>
         </div>
@@ -100,8 +108,8 @@ export default function Headers() {
               <p
                 className={`${
                   currentPath === "/"
-                    ? "pl-2 pt-1 flex justify-center items-center border-l-2   "
-                    : "pl-2 pt-1 flex justify-center items-center  border-l-2 pt-2"
+                    ? "text-red-600 pl-2 pt-1 flex justify-center items-center border-l-2  hover:text-blue-800 hover:text-xl transition duration-300 ease-in-out transform hover:scale-105  "
+                    : "text-red-600 pl-2 pt-1 flex justify-center items-center  border-l-2 pt-2 hover:text-blue-800 hover:text-xl transition duration-300 ease-in-out transform hover:scale-105"
                 }   `}
               >
                 TẤT CẢ DANH MỤC
@@ -118,14 +126,9 @@ export default function Headers() {
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
-                  <li className=" w-full p-2">Motor cửa cuốn</li> <hr />
-                </Link>
-                <Link
-                  href="/product"
-                  className="text-black"
-                  style={{ textDecoration: "none" }}
-                >
-                  <li className=" w-full p-2">Động cơ 1 pha</li>
+                  <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
+                    Motor cửa cuốn
+                  </li>{" "}
                   <hr />
                 </Link>
                 <Link
@@ -133,7 +136,9 @@ export default function Headers() {
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
-                  <li className=" w-full p-2">Đầu phát điện</li>
+                  <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
+                    Động cơ 1 pha
+                  </li>
                   <hr />
                 </Link>
                 <Link
@@ -141,7 +146,9 @@ export default function Headers() {
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
-                  <li className=" w-full p-2">Máy phát điện</li>
+                  <li className=" w-full p-2 hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105 ">
+                    Đầu phát điện
+                  </li>
                   <hr />
                 </Link>
                 <Link
@@ -149,19 +156,33 @@ export default function Headers() {
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
-                  <li className=" w-full p-2">Máy bơm nước</li>
+                  <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
+                    Máy phát điện
+                  </li>
+                  <hr />
+                </Link>
+                <Link
+                  href="/product"
+                  className="text-black"
+                  style={{ textDecoration: "none" }}
+                >
+                  <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
+                    Máy bơm nước
+                  </li>
                   <hr />
                 </Link>
               </ul>
             </div>
           </div>
-          <div className="w-1/3  bg-white p-2 flex justify-center items-center">
+          <div className="w-1/3  bg-white p-2 flex justify-center items-center ">
             <Link
               href="/"
               className="text-black"
               style={{ textDecoration: "none" }}
             >
-              TRANG CHỦ
+              <p className="hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105">
+                TRANG CHỦ
+              </p>
             </Link>
           </div>
           <div className="w-1/3  bg-white p-2 flex justify-center items-center">
@@ -170,7 +191,9 @@ export default function Headers() {
               className="text-black"
               style={{ textDecoration: "none" }}
             >
-              GIỚI THIỆU
+              <p className="hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105 ">
+                GIỚI THIỆU
+              </p>
             </Link>
           </div>
           <div className="w-1/3  bg-white p-2 flex justify-center items-center">
@@ -179,7 +202,9 @@ export default function Headers() {
               className="text-black"
               style={{ textDecoration: "none" }}
             >
-              LIÊN HỆ
+              <p className="hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105 ">
+                LIÊN HỆ
+              </p>
             </Link>
           </div>
 
@@ -189,7 +214,9 @@ export default function Headers() {
               className="text-black"
               style={{ textDecoration: "none" }}
             >
-              TIN TỨC
+              <p className="hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105 ">
+                TIN TỨC
+              </p>
             </Link>
           </div>
 
@@ -199,25 +226,27 @@ export default function Headers() {
               className="text-black"
               style={{ textDecoration: "none" }}
             >
-              TUYỂN DỤNG
+              <p className="hover:text-blue-800 hover:text-xl transition duration-300 ease-in-out transform hover:scale-105 ">
+                TUYỂN DỤNG
+              </p>
             </Link>
           </div>
-          <div className="w-2/3  flex   bg-white  ">
+          <div className="w-2/3 flex   bg-white  ">
             <div className="relative group cursor-pointer      ">
-              <p className="p-4 pl-8  flex justify-center items-center">
+              <p className="text-red-600 p-4 pl-8  flex justify-center items-center hover:text-blue-800 hover:text-lg transition duration-300 ease-in-out transform hover:scale-105">
                 TRANG WEB LIÊN KẾT
               </p>
               <ul
                 className={`${
                   currentPath === "/"
-                    ? "hidden group-hover:block absolute bg-white   border-l-2 w-60 z-10 opacity-80 "
+                    ? "hidden group-hover:block absolute bg-white   border-l-2 w-60 z-10 opacity-90 "
                     : "hidden group-hover:block absolute bg-white   border-l-2 w-60 z-10 "
                 }   `}
               >
                 <li className="w-full  p-2">
                   <Link
                     href="https://motortanthanhtai.com/"
-                    className="text-black"
+                    className="text-black hover:text-blue-800 hover:text-xl transition duration-300 ease-in-out transform hover:scale-105 "
                     target="_blank"
                     style={{ textDecoration: "none" }}
                   >
@@ -228,7 +257,7 @@ export default function Headers() {
                 <li className="w-full p-2">
                   <Link
                     href="https://mayphatdientanthanhtai.com/"
-                    className="text-black"
+                    className="text-black hover:text-blue-800 hover:text-xl transition duration-300 ease-in-out transform hover:scale-105 "
                     target="_blank"
                     style={{ textDecoration: "none" }}
                   >
@@ -239,7 +268,7 @@ export default function Headers() {
                 <li className="w-full p-2">
                   <Link
                     href="https://maybomnuocadelino.vn/"
-                    className="text-black"
+                    className="text-black hover:text-blue-800 hover:text-xl transition duration-300 ease-in-out transform hover:scale-105 "
                     target="_blank"
                     style={{ textDecoration: "none" }}
                   >

@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 
+// LINK
+const linkConnectDb = `mongodb+srv://${process.env.USERNAMEDB}:${process.env.PASSWORDDB}@dbwebttt.v51nbla.mongodb.net/?retryWrites=true&w=majority`;
+
 //connect mongoose
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(linkConnectDb)
   .then((_) => console.log("Connected mongoose success!..."), {
     useNewUrlParser: "true",
     useUnifiedTopology: "true",

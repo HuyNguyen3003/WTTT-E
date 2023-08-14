@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Contact() {
   const phoneNumber = "0918026532"; // Số điện thoại của bạn
@@ -7,6 +8,22 @@ export default function Contact() {
   return (
     <div className="fixed right-4 bottom-16 flex flex-col space-y-4">
       <div className="relative group">
+        <Link
+          target="_blank"
+          href={`https://www.google.com/maps/place/C%C3%B4ng+Ty+TNHH+SX+TM-DV+T%C3%A2n+Th%C3%A0nh+T%C3%A0i/@10.7342741,106.600011,17z/data=!4m15!1m7!3m6!1s0x31752c5c86793ccf:0x6358341a9440abd1!2zQ8O0bmcgVHkgVE5ISCBTWCBUTS1EViBUw6JuIFRow6BuaCBUw6Bp!8m2!3d10.7333647!4d106.6024095!16s%2Fg%2F11cn9p_n19!3m6!1s0x31752c5c86793ccf:0x6358341a9440abd1!8m2!3d10.7333647!4d106.6024095!15sChB0w6JuIHRow6BuaCB0w6BpIgOIAQFaEiIQdMOibiB0aMOgbmggdMOgaZIBFGVsZWN0cmljX21vdG9yX3N0b3Jl4AEA!16s%2Fg%2F11cn9p_n19?entry=ttu`}
+        >
+          <div className="bg-white rounded-full p-2 transform hover:translate-y-1 transition duration-300 cursor-pointer">
+            <span className="text-white">
+              <img
+                src="/img/addressIcon"
+                alt="Phone Icon"
+                className=" w-6 h-6"
+              />
+            </span>
+          </div>
+        </Link>
+      </div>
+      <div className="relative group ">
         <Link href={`tel:${phoneNumber}`} passHref>
           <div className="bg-blue-500 rounded-full p-2 transform hover:translate-y-1 transition duration-300 cursor-pointer">
             <span className="text-white">
