@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const pageSchema = new mongoose.Schema({
-  type: { type: String },
-  title: {
+  title: { type: String },
+  name: {
     type: String,
   },
   image: {

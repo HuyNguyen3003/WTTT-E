@@ -11,27 +11,44 @@ let getAll = async () => {
   });
 };
 let update = async (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const res = await page.findOneAndUpdate(
-        { _id: data.id },
-        { type: data.type },
-        { title: data.title },
-        { image: data.image },
-        { detail: data.detail },
-        { new: true }
+  try {
+    if (!data._id) {
+      // Nếu không có data.id, tạo một bản ghi mới
+      const newProduct = new page({
+        title: data.title,
+        name: data.name,
+        image: data.img,
+        detail: data.detail,
+      });
+
+      const savedProduct = await newProduct.save();
+      return savedProduct;
+    } else {
+      // Nếu có data.id, cập nhật bản ghi hiện có
+      console.log(data, "-----");
+
+      const updatedPage = await page.findByIdAndUpdate(
+        data._id,
+        {
+          type: data.title,
+          name: data.name,
+          image: data.img,
+          detail: data.detail,
+        },
+        { new: true } // Lấy giá trị mới sau khi cập nhật
       );
-      resolve(res);
-    } catch (e) {
-      reject(e);
+
+      return updatedPage;
     }
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
-let Delete = async (data) => {
+let Delete = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = page.deleteOne({ _id: data.id });
+      const res = page.deleteOne({ _id: id.dataId });
       resolve(res);
     } catch (e) {
       reject(e);

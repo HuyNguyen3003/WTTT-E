@@ -14,7 +14,7 @@ export default function mgproduct() {
     const res = await axios.get("http://localhost:5000/product");
     setallData(res.data);
   };
-  useEffect(async () => {
+  useEffect(() => {
     handUseE();
   }, []);
 
@@ -69,7 +69,7 @@ export default function mgproduct() {
 
       const arr = allData;
       arr.push(res.data);
-      setallData(arr);
+
       setCategory("");
       setSelectedImage("");
       setProductName("");
@@ -89,6 +89,7 @@ export default function mgproduct() {
 
   const delProduct = async (dataId) => {
     await axios.post("http://localhost:5000/product/delete", { dataId });
+    console.log(123);
     setallData((prevData) => prevData.filter((item) => item._id !== dataId));
   };
 
@@ -137,7 +138,7 @@ export default function mgproduct() {
     setstringObject(event.target.value);
   };
 
-  const handleUpdate = async (item) => {
+  const handleUpdate = async (item, index) => {
     const data = {};
     data._id = item._id;
     data.name = item.name;
@@ -146,6 +147,8 @@ export default function mgproduct() {
     data.details = handleStringToObject(stringObject);
 
     await axios.post("http://localhost:5000/product/update", data);
+    let arr = allData;
+    arr[index].details = handleStringToObject(stringObject);
   };
 
   return (
@@ -177,7 +180,7 @@ export default function mgproduct() {
             <tbody>
               {allData &&
                 allData.length > 0 &&
-                allData.map((item) => {
+                allData.map((item, index) => {
                   return (
                     <tr key={item._id}>
                       <td className="px-20">{item.title}</td>
@@ -191,7 +194,7 @@ export default function mgproduct() {
                           <div
                             className="px-10"
                             onClick={() => {
-                              handleUpdate(item);
+                              handleUpdate(item, index);
                             }}
                           >
                             x
@@ -209,7 +212,7 @@ export default function mgproduct() {
                         />
                       </td>
                       <td
-                        onClick={() => delProduct(item)}
+                        onClick={() => delProduct(item._id)}
                         className="px-20 cursor-pointer"
                       >
                         <div>x</div>
