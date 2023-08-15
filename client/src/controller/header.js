@@ -122,7 +122,7 @@ export default function Headers() {
                 }   `}
               >
                 <Link
-                  href="/product"
+                  href="/product?type=V1"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >

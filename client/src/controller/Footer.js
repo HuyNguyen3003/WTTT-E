@@ -1,4 +1,6 @@
 import React from "react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -35,6 +37,25 @@ const Footer = () => {
               <div className="text-lg font-semibold ">TƯ VẤN KỸ THUẬT</div>
               <div>0918.026.532</div>
               <div> Tất cả các ngày trong tuần</div>
+            </div>
+          </div>
+          <div className="text-center flex ">
+            <div className="text-lg font-semibold ">CÁC KÊNH KHÁC: </div>
+            <div className=" ml-3 ">
+              <Link
+                target="_blank"
+                href="https://www.facebook.com/diencotanthanhtai/"
+              >
+                <i className="fab fa-facebook"></i>
+              </Link>
+
+              <Link
+                target="_blank"
+                href="https://www.youtube.com/@SieuThiDienTanThanhTai"
+                className=" ml-3 "
+              >
+                <i className="fab fa-youtube"></i>
+              </Link>
             </div>
           </div>
         </div>

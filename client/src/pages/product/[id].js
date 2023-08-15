@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Product from "../../controller/product";
+import Link from "next/link";
 
 export default function DetailProduct(props) {
   const detectDeviceType = () =>
@@ -27,9 +28,11 @@ export default function DetailProduct(props) {
             </h1>
             <p className="text-gray-600">Mô tả sản phẩm...</p>
             <div className="text-2xl font-bold mt-4">Giá: Liên hệ</div>
-            <button className="bg-blue-500 text-white px-4 py-2 mt-4">
-              Mua Hàng
-            </button>
+            <Link href={"/product/buy"}>
+              <button className="bg-blue-500 text-white px-4 py-2 mt-4">
+                Mua Hàng
+              </button>
+            </Link>
           </div>
         </div>
         <div className="detailProduct px-40 py-5 ">

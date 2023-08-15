@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function TuyenDung() {
   return (
@@ -13,108 +14,109 @@ export default function TuyenDung() {
           key="desc"
         />
       </Head>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <span className=" text-red-600 flex text-xl justify-center p-5 ml-48 mr-48  mt-10 mb-10 hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105">
+          TUYỂN DỤNG
+        </span>
 
-      <span className=" text-red-600 flex text-xl justify-center p-5 ml-48 mr-48  mt-10 mb-10 hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105">
-        TUYỂN DỤNG
-      </span>
+        <div className="flex justify-center">
+          <div className="grid grid-cols-2  gap-x-3 gap-8">
+            <Link
+              href="/gioithieu/id1"
+              className="text-black"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="flex place-items-center ml-14 mr-12">
+                <img
+                  src="img/cong-ty-tnhh-sx-tm-dv-tan-thanh-tai1574245565_280x205.jpg"
+                  alt="Image 1"
+                  className="mx-1 my-1"
+                />
+                <div className="ml-1.5">
+                  <div className="text-lg">TUYỂN DỤNG THỢ ...</div>
+                  <div className="text-xs">
+                    Công Ty Tân Thành Tài được khởi nguồn từ ý chí của con người
+                    đầy nhiệt huyết – Ông Nguyễn Ngọc Quý là người sáng lập và
+                    Quản lý công ty. Thương hiệu Tân Thành Tài được xây dựng và
+                    biết đến là một thương hiệu uy tín, phong cách phục vụ nhanh
+                    chóng và đáng tin cậy.
+                  </div>
+                </div>
+              </div>
+            </Link>
+            <Link
+              href="/gioithieu/id2"
+              className="text-black"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="flex place-items-center ml-14 mr-12">
+                <img
+                  src="img/cu-phat-dien-lap-may-no-d-tai-binh-thuan1585879893_280x205.jpg"
+                  alt="Image 2"
+                />
+                <div className="ml-1.5">
+                  <div className="text-lg">THÀNH TÍCH NỔI BẬT ĐẠT ĐƯỢC</div>
+                  <div className="text-xs">
+                    Ra đời với sứ mệnh phục vụ khách hàng với dịch vụ tốt nhất,
+                    đưa ra những giải pháp hữu ích nhất. Tân Thành Tài đã tự lựa
+                    chọn cho mình con đường đi lên lấy chất lượng và uy tín hàng
+                    đầu. Năm 2005 cũng là năm thương hiệu Tân Thành Tài chính
+                    thức...
+                  </div>
+                </div>
+              </div>
+            </Link>
 
-      <div className="flex justify-center">
-        <div className="grid grid-cols-2  gap-x-3 gap-8">
-          <Link
-            href="/gioithieu/id1"
-            className="text-black"
-            style={{ textDecoration: "none" }}
-          >
-            <div className="flex place-items-center ml-14 mr-12">
-              <img
-                src="img/cong-ty-tnhh-sx-tm-dv-tan-thanh-tai1574245565_280x205.jpg"
-                alt="Image 1"
-                className="mx-1 my-1"
-              />
-              <div className="ml-1.5">
-                <div className="text-lg">TUYỂN DỤNG THỢ ...</div>
-                <div className="text-xs">
-                  Công Ty Tân Thành Tài được khởi nguồn từ ý chí của con người
-                  đầy nhiệt huyết – Ông Nguyễn Ngọc Quý là người sáng lập và
-                  Quản lý công ty. Thương hiệu Tân Thành Tài được xây dựng và
-                  biết đến là một thương hiệu uy tín, phong cách phục vụ nhanh
-                  chóng và đáng tin cậy.
+            <Link
+              href="/gioithieu/id5"
+              className="text-black"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="flex place-items-center ml-14 mr-12">
+                <img
+                  src="img/mo-to-lap-may-xay-xat-tai-dong-nai1585899101_280x205.jpg"
+                  alt="Image 4"
+                />
+                <div className="ml-1.5">
+                  <div className="text-lg">
+                    Củ phát điện lắp máy nổ D tại Bình Thuận
+                  </div>
+                  <div className="text-xs">
+                    Khách hàng tại Bình Thuận đã tin dùng Củ phát điện lắp máy
+                    nổ D do Công ty Tân Thành Tài phân phối. Diesel lắp Dinamo
+                    được gọi là máy phát điện đầu nổ dùng trong sinh hoạt gia
+                    đình hoặc nhà xưởng, trang trại...khi sự cố mất điện xảy ra.
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-          <Link
-            href="/gioithieu/id2"
-            className="text-black"
-            style={{ textDecoration: "none" }}
-          >
-            <div className="flex place-items-center ml-14 mr-12">
-              <img
-                src="img/cu-phat-dien-lap-may-no-d-tai-binh-thuan1585879893_280x205.jpg"
-                alt="Image 2"
-              />
-              <div className="ml-1.5">
-                <div className="text-lg">THÀNH TÍCH NỔI BẬT ĐẠT ĐƯỢC</div>
-                <div className="text-xs">
-                  Ra đời với sứ mệnh phục vụ khách hàng với dịch vụ tốt nhất,
-                  đưa ra những giải pháp hữu ích nhất. Tân Thành Tài đã tự lựa
-                  chọn cho mình con đường đi lên lấy chất lượng và uy tín hàng
-                  đầu. Năm 2005 cũng là năm thương hiệu Tân Thành Tài chính
-                  thức...
+            </Link>
+            <Link
+              href="/gioithieu/id6"
+              className="text-black"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="flex place-items-center ml-14 mr-12">
+                <img
+                  src="img/thanh-tich-noi-bat1574245480_280x205.jpg"
+                  alt="Image 4"
+                />
+                <div className="ml-1.5">
+                  <div className="text-lg">
+                    Củ phát điện lắp máy nổ D tại Bình Thuận
+                  </div>
+                  <div className="text-xs">
+                    Khách hàng tại Bình Thuận đã tin dùng Củ phát điện lắp máy
+                    nổ D do Công ty Tân Thành Tài phân phối. Diesel lắp Dinamo
+                    được gọi là máy phát điện đầu nổ dùng trong sinh hoạt gia
+                    đình hoặc nhà xưởng, trang trại...khi sự cố mất điện xảy ra.
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-
-          <Link
-            href="/gioithieu/id5"
-            className="text-black"
-            style={{ textDecoration: "none" }}
-          >
-            <div className="flex place-items-center ml-14 mr-12">
-              <img
-                src="img/mo-to-lap-may-xay-xat-tai-dong-nai1585899101_280x205.jpg"
-                alt="Image 4"
-              />
-              <div className="ml-1.5">
-                <div className="text-lg">
-                  Củ phát điện lắp máy nổ D tại Bình Thuận
-                </div>
-                <div className="text-xs">
-                  Khách hàng tại Bình Thuận đã tin dùng Củ phát điện lắp máy nổ
-                  D do Công ty Tân Thành Tài phân phối. Diesel lắp Dinamo được
-                  gọi là máy phát điện đầu nổ dùng trong sinh hoạt gia đình hoặc
-                  nhà xưởng, trang trại...khi sự cố mất điện xảy ra.
-                </div>
-              </div>
-            </div>
-          </Link>
-          <Link
-            href="/gioithieu/id6"
-            className="text-black"
-            style={{ textDecoration: "none" }}
-          >
-            <div className="flex place-items-center ml-14 mr-12">
-              <img
-                src="img/thanh-tich-noi-bat1574245480_280x205.jpg"
-                alt="Image 4"
-              />
-              <div className="ml-1.5">
-                <div className="text-lg">
-                  Củ phát điện lắp máy nổ D tại Bình Thuận
-                </div>
-                <div className="text-xs">
-                  Khách hàng tại Bình Thuận đã tin dùng Củ phát điện lắp máy nổ
-                  D do Công ty Tân Thành Tài phân phối. Diesel lắp Dinamo được
-                  gọi là máy phát điện đầu nổ dùng trong sinh hoạt gia đình hoặc
-                  nhà xưởng, trang trại...khi sự cố mất điện xảy ra.
-                </div>
-              </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className="m-24"></div>
+        <div className="m-24"></div>
+      </motion.div>
     </>
   );
 }

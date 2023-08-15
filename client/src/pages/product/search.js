@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Product from "../../controller/product";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 
 export default function SearchProduct() {
   const router = useRouter();
@@ -23,16 +24,17 @@ export default function SearchProduct() {
           key="desc"
         />
       </Head>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <span className=" text-red-600 flex text-xl justify-center p-5 ml-48 mr-48  mt-10 mb-10  ">
+          SẢN PHẨM LIÊN QUAN
+        </span>
 
-      <span className=" text-red-600 flex text-xl justify-center p-5 ml-48 mr-48  mt-10 mb-10  ">
-        SẢN PHẨM LIÊN QUAN
-      </span>
-
-      <Product
-        className="flex justify-center items-center  "
-        deviceType={detectDeviceType}
-        name={`Những sản phẩm liên quan đến ${name}`}
-      />
+        <Product
+          className="flex justify-center items-center  "
+          deviceType={detectDeviceType}
+          name={`Những sản phẩm liên quan đến ${name}`}
+        />
+      </motion.div>
     </>
   );
 }
