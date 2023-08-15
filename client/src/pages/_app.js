@@ -8,9 +8,20 @@ import Footer from "../controller/Footer";
 import Services from "../controller/services";
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
-import { animateScroll as scroll } from "react-scroll";
+
+import { useEffect } from "react";
+import { useSelector, useDispatch, Provider } from "react-redux";
+import store from "../store/store";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedCount = localStorage.getItem("count");
+      if (!storedCount) {
+        localStorage.setItem("count", `[{"id":"0","price":"0"}]`);
+      }
+    }
+  }, []);
   const fadeIn = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -38,10 +49,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <link rel="shortcut icon" href="/img/00014_logo_vi.png" />
-      </Head>
-      {renderSections()}
+      <Provider store={store}>
+        <Head>
+          <link rel="shortcut icon" href="/img/00014_logo_vi.png" />
+        </Head>
+        {renderSections()}
+      </Provider>
     </>
   );
 }

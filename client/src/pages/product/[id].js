@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Product from "../../controller/product";
 import Link from "next/link";
+import store from "../../store/store";
+import { useSelector, useDispatch, Provider } from "react-redux";
 
 export default function DetailProduct(props) {
+  //
+  const dispatch = useDispatch();
+  const setCustomCount = () => {
+    dispatch({ type: "INCREMENT" });
+  };
+  const storedJsonArray = localStorage.getItem("count");
+  let arr = [];
+  const handleAddProduct = () => {
+    arr = JSON.parse(storedJsonArray);
+    arr.push({ id: 1, price: 1 });
+    const updatedJsonArray = JSON.stringify(arr);
+    localStorage.setItem("count", updatedJsonArray);
+    setCustomCount();
+  };
+
   const detectDeviceType = () =>
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
@@ -29,8 +46,11 @@ export default function DetailProduct(props) {
             <p className="text-gray-600">Mô tả sản phẩm...</p>
             <div className="text-2xl font-bold mt-4">Giá: Liên hệ</div>
             <Link href={"/product/buy"}>
-              <button className="bg-blue-500 text-white px-4 py-2 mt-4">
-                Mua Hàng
+              <button
+                onClick={handleAddProduct}
+                className="bg-blue-500 text-white px-4 py-2 mt-4"
+              >
+                Thêm vào giỏ hàng
               </button>
             </Link>
           </div>

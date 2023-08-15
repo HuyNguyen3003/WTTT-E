@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
-
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -10,6 +11,24 @@ export default function Headers() {
   const router = useRouter();
   const currentPath = router.pathname;
   const [dataSearch, setdataSearch] = useState("");
+
+  // redux store
+  const count = useSelector((state) => state.count);
+  const dispatch = useDispatch();
+  const setCustomCount = (number) => {
+    dispatch({ type: "SET_COUNT", payload: number });
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedJsonArray = localStorage.getItem("count");
+      if (storedJsonArray) {
+        const storedArray = JSON.parse(storedJsonArray);
+        console.log(storedArray.length);
+        setCustomCount(storedArray.length - 1);
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -85,9 +104,11 @@ export default function Headers() {
           </div>
           <div className="icon pr-32">
             <div className="flex">
-              <FaShoppingCart size={48} color="red" />
+              <Link href="/product/buy">
+                <FaShoppingCart size={48} color="red" />
+              </Link>
               <div className="  p-2 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center mt-8  ">
-                1
+                {count}
               </div>
             </div>
           </div>
