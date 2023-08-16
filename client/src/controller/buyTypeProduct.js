@@ -1,18 +1,6 @@
 import React, { useState } from "react";
 
-export default function BuyTypeProduct() {
-  const [numberDetail, setNumberDetail] = useState(1);
-
-  const increaseQuantity = () => {
-    setNumberDetail(numberDetail + 1);
-  };
-
-  const decreaseQuantity = () => {
-    if (numberDetail > 0) {
-      setNumberDetail(numberDetail - 1);
-    }
-  };
-
+export default function BuyTypeProduct(props) {
   return (
     <div className="flex border-b border-gray-400">
       <img
@@ -21,25 +9,21 @@ export default function BuyTypeProduct() {
         alt="Product"
       />
       <div>
-        <strong>Loại sản phẩm:</strong> V1 kas <br />
-        <strong>Tên sản phẩm:</strong> 123abc..
+        <strong>Loại sản phẩm:</strong> {props.title} <br />
+        <strong>Tên sản phẩm:</strong>
+        {props.name}
         <br />
-        <strong>Chi tiết thông số:</strong> hz fvaf <br />
+        <strong>Chi tiết thông số: </strong>
+        {props.detail} <br />
         <div className="flex items-center">
-          <strong className="mr-2">Giá tiền:</strong> 41123{" "}
+          <strong className="mr-2">Giá tiền:</strong> {props.price}
           <strong className="ml-6 mr-2">Số lượng:</strong>
           <div className="flex">
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded"
-              onClick={decreaseQuantity}
-            >
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
               -
             </button>
-            <span className="mx-2">{numberDetail}</span>
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded"
-              onClick={increaseQuantity}
-            >
+            <span className="mx-2">{props.number}</span>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
               +
             </button>
           </div>

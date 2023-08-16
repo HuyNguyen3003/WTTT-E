@@ -99,25 +99,19 @@ export default function mgproduct() {
 
   // handle string to Object
   const handleStringToObject = (inputString) => {
-    const pairs = inputString.split(" ");
-    const detailsArray = [];
-    let currentDetail = {};
+    const productStrings = inputString.split("name:");
 
-    pairs.forEach((pair) => {
-      const [key, value] = pair.split(":");
+    const products = productStrings.slice(1).map((productString) => {
+      const [productInfo, details] = productString.trim().split("details:");
+      const [name, price] = productInfo.split("price:");
 
-      if (key === "name") {
-        currentDetail.name = value;
-      } else if (key === "price") {
-        currentDetail.price = value;
-      } else if (key === "details") {
-        currentDetail.details = value;
-        detailsArray.push(currentDetail);
-        currentDetail = {};
-      }
+      return {
+        name: name.trim(),
+        price: price.trim(),
+        details: details.trim(),
+      };
     });
-
-    return detailsArray;
+    return products;
   };
 
   // handle obj to String

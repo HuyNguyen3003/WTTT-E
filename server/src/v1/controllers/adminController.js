@@ -6,7 +6,7 @@ let login = async (req, res) => {
 
     const respone = await adminServices.login(data);
     if (respone) return res.json(respone);
-    else return res.json("fail");
+    else return res.json(false);
   } catch (e) {
     console.log(e);
   }

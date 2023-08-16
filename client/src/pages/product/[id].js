@@ -15,7 +15,7 @@ export default function DetailProduct(props) {
   let arr = [];
   const handleAddProduct = () => {
     arr = JSON.parse(storedJsonArray);
-    arr.push({ id: 1, price: 1 });
+    arr.push({ id: 1 });
     const updatedJsonArray = JSON.stringify(arr);
     localStorage.setItem("count", updatedJsonArray);
     setCustomCount();

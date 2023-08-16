@@ -11,6 +11,7 @@ let initWebRoutes = (app) => {
   router.get("/product", productController.getAll);
   router.post("/product/update", productController.update);
   router.post("/product/delete", productController.Delete);
+  router.post("/product/sendmailBuy", productController.sendMail);
 
   router.get("/page", pageController.getAll);
   router.post("/page/update", pageController.update);

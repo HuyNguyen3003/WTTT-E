@@ -24,7 +24,7 @@ export default function Headers() {
       const storedJsonArray = localStorage.getItem("count");
       if (storedJsonArray) {
         const storedArray = JSON.parse(storedJsonArray);
-        console.log(storedArray.length);
+
         setCustomCount(storedArray.length - 1);
       }
     }
@@ -148,7 +148,7 @@ export default function Headers() {
                   style={{ textDecoration: "none" }}
                 >
                   <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
-                    Motor cửa cuốn
+                    Motor
                   </li>{" "}
                   <hr />
                 </Link>
@@ -158,7 +158,7 @@ export default function Headers() {
                   style={{ textDecoration: "none" }}
                 >
                   <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
-                    Động cơ 1 pha
+                    Máy bơm nước
                   </li>
                   <hr />
                 </Link>
@@ -168,16 +168,6 @@ export default function Headers() {
                   style={{ textDecoration: "none" }}
                 >
                   <li className=" w-full p-2 hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105 ">
-                    Đầu phát điện
-                  </li>
-                  <hr />
-                </Link>
-                <Link
-                  href="/product"
-                  className="text-black"
-                  style={{ textDecoration: "none" }}
-                >
-                  <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
                     Máy phát điện
                   </li>
                   <hr />
@@ -188,7 +178,7 @@ export default function Headers() {
                   style={{ textDecoration: "none" }}
                 >
                   <li className=" w-full p-2 hover:text-blue-800  transition duration-300 ease-in-out transform hover:scale-105 ">
-                    Máy bơm nước
+                    Phụ tùng sản phẩm
                   </li>
                   <hr />
                 </Link>

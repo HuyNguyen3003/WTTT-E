@@ -1,8 +1,14 @@
 let login = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      res = data.user === "admin" && data.password === "12345";
-      resolve(res);
+      console.log(data);
+      if (data.username === "admin" && data.password === "12345") {
+        res = true;
+        resolve(res);
+      } else {
+        res = false;
+        resolve(res);
+      }
     } catch (e) {
       reject(e);
     }

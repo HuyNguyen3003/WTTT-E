@@ -3,6 +3,8 @@ import Head from "next/head";
 import { motion } from "framer-motion";
 import BuyTypeProduct from "../../controller/buyTypeProduct";
 import MyCustomAlert from "../../controller/alert";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function BuyProduct() {
   const [name, setname] = useState("");
@@ -11,8 +13,9 @@ export default function BuyProduct() {
   const [address, setaddress] = useState("");
   const [detail, setdetail] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const count = useSelector((state) => state.count);
 
-  const handleChangleInput = () => {
+  const handleChangleInput = async () => {
     if (!name || !email || !phone || !address || !detail) {
       alert("Vui lòng nhập đủ thông tin để chúng tôi có thể liên lạc");
     } else {
@@ -38,6 +41,8 @@ export default function BuyProduct() {
       setaddress("");
       setphone("");
       setdetail("");
+      const data = { name, phone, email, address, detail };
+      await axios.post("http://localhost:5000/product/sendmailBuy", data);
     }
   };
   return (
@@ -52,7 +57,7 @@ export default function BuyProduct() {
       </Head>
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <span className=" text-red-600 flex text-xl justify-center p-5 ml-48 mr-48 mt-10 mb-10 hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105">
+        <span className=" text-red-800 flex text-2xl justify-center p-5 ml-48 mr-48 mt-10 mb-10 hover:text-blue-800 ">
           GIỎ HÀNG
         </span>
 
@@ -60,13 +65,19 @@ export default function BuyProduct() {
           <div className="mx-20 col-span-2 bg-gray-200 p-4">
             <div className="flex flex-col">
               <div className="mb-2">
-                <strong>Số lượng loại sản phẩm:</strong>
+                <strong>Số lượng loại sản phẩm : {count}</strong>
               </div>
               <hr className="py-2" />
               <div className="h-screen flex  bg-gray-100">
                 <div className="w-full  p-4 border rounded-lg bg-white overflow-y-auto">
                   <div className="space-y-2">
-                    <BuyTypeProduct />
+                    <BuyTypeProduct
+                      title={"V1"}
+                      name={"Máy phát điện"}
+                      detail={"X1"}
+                      price={"2000"}
+                      number={1}
+                    />
                     <BuyTypeProduct />
                   </div>
                 </div>

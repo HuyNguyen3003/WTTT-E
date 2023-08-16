@@ -9,8 +9,8 @@ const initWebRoutes = require("./v1/router");
 //init db
 require("./v1/init.mongodb");
 
-app.use(helmet());
-app.use(morgan("combined"));
+// app.use(helmet());
+// app.use(morgan("combined"));
 // compress responses
 app.use(compression());
 app.use(cors());

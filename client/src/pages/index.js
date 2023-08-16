@@ -1,18 +1,85 @@
-import React from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import axios, { all } from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
 import Product from "../controller/product";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function MyComponent() {
+  //
+  const allProduct = useSelector((state) => state.product);
+  const allPage = useSelector((state) => state.page);
+
+  const dispatch = useDispatch();
+  const setProduct = (product) => {
+    dispatch({ type: "SET_PRODUCT", payload: product });
+  };
+  const setPage = (page) => {
+    dispatch({ type: "SET_PAGE", payload: page });
+  };
+
+  const handleProduct = (allProduct) => {
+    const productsByTitle = [
+      {
+        title: "x1: Motor",
+        products: [],
+      },
+      {
+        title: "x2: Máy Bơm Nước",
+        products: [],
+      },
+      {
+        title: "x3: Máy Phát Điện",
+        products: [],
+      },
+      {
+        title: "x4: Phụ Tùng",
+        products: [],
+      },
+    ];
+
+    allProduct.forEach((item) => {
+      const { _id, title, name, img, detals } = item;
+      const product = {
+        _id,
+        title,
+        name: name.slice(3),
+        img,
+        details: detals,
+      };
+
+      const productTitleIndex = productsByTitle.findIndex(
+        (item) => item.title === title
+      );
+      if (productTitleIndex !== -1) {
+        productsByTitle[productTitleIndex].products.push(product);
+      }
+    });
+
+    return productsByTitle;
+  };
+
+  const getAllData = async () => {
+    const resProduct = await axios.get("http://localhost:5000/product");
+    const resPage = await axios.get("http://localhost:5000/page");
+    setProduct(handleProduct(resProduct.data));
+    setPage(resPage.data);
+  };
+
+  useEffect(() => {
+    getAllData();
+  }, []);
+  console.log(allProduct);
+
   const detectDeviceType = () =>
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     )
       ? "Mobile"
       : "Desktop";
+
   return (
     <Container className="pb-10">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -45,26 +112,17 @@ export default function MyComponent() {
             <img src="/img/87cpIkbEsTKUi.jpg!w700wp" />
           </div>
           <div className="w-4/5 h-1/2">
-            <Product
-              className=" flex justify-center items-center"
-              deviceType={detectDeviceType}
-              name={"Đầu phát điện"}
-            />
-            <Product
-              className=" flex justify-center items-center"
-              deviceType={detectDeviceType}
-              name={"Động cơ 1 pha"}
-            />
-            <Product
-              className="flex justify-center items-center"
-              deviceType={detectDeviceType}
-              name={"Máy phát điện"}
-            />
-            <Product
-              className="flex justify-center items-center"
-              deviceType={detectDeviceType}
-              name={"Máy bơm nước"}
-            />
+            {allProduct &&
+              allProduct.length > 0 &&
+              allProduct.map((item, index) => {
+                return (
+                  <Product
+                    className=" flex justify-center items-center"
+                    deviceType={detectDeviceType}
+                    name={`${item.title.slice(3)}`}
+                  />
+                );
+              })}
           </div>
         </div>
       </motion.div>

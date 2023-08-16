@@ -15,10 +15,11 @@ import store from "../store/store";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
+    // Set type store lúc mới vào web lần đâu
     if (typeof window !== "undefined") {
       const storedCount = localStorage.getItem("count");
       if (!storedCount) {
-        localStorage.setItem("count", `[{"id":"0","price":"0"}]`);
+        localStorage.setItem("count", `[{"id":"-1"}]`);
       }
     }
   }, []);

@@ -35,8 +35,21 @@ let Delete = async (req, res) => {
   }
 };
 
+let sendMail = async (req, res) => {
+  try {
+    const data = req.body;
+
+    const respone = await productServices.sendMail(data);
+    if (respone) return res.json(respone);
+    else return res.json("fail");
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   getAll,
   update,
   Delete,
+  sendMail,
 };

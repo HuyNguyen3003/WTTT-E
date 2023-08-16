@@ -4,10 +4,16 @@ import { createStore } from "redux";
 
 const initialState = {
   count: 0,
+  product: {},
+  page: {},
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_PRODUCT":
+      return { ...state, product: action.payload };
+    case "SET_PAGE":
+      return { ...state, page: action.payload };
     case "SET_COUNT":
       return { ...state, count: action.payload };
     case "INCREMENT":
