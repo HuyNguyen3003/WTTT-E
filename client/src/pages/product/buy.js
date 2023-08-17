@@ -13,7 +13,7 @@ export default function BuyProduct() {
   const [address, setaddress] = useState("");
   const [detail, setdetail] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const count = useSelector((state) => state.count);
+  const [cartProduct, setcartProduct] = useState([]);
 
   const handleChangleInput = async () => {
     if (!name || !email || !phone || !address || !detail) {
@@ -45,6 +45,24 @@ export default function BuyProduct() {
       await axios.post("http://localhost:5000/product/sendmailBuy", data);
     }
   };
+  const allProduct = useSelector((state) => state.product);
+  const handleIdLink = () => {
+    const splitStrings = id.split("-");
+    if (splitStrings.length === 3) {
+      return splitStrings;
+    }
+  };
+
+  useEffect(() => {
+    let cartProduct;
+    if (typeof window !== "undefined") {
+      cartProduct = localStorage.getItem("count");
+      cartProduct = JSON.parse(cartProduct);
+    }
+    setcartProduct(cartProduct);
+  }, []);
+  console.log(cartProduct);
+
   return (
     <>
       <Head>
@@ -65,7 +83,7 @@ export default function BuyProduct() {
           <div className="mx-20 col-span-2 bg-gray-200 p-4">
             <div className="flex flex-col">
               <div className="mb-2">
-                <strong>Số lượng loại sản phẩm : {count}</strong>
+                <strong>Số lượng loại sản phẩm : {cartProduct.length} </strong>
               </div>
               <hr className="py-2" />
               <div className="h-screen flex  bg-gray-100">
@@ -78,7 +96,13 @@ export default function BuyProduct() {
                       price={"2000"}
                       number={1}
                     />
-                    <BuyTypeProduct />
+                    <BuyTypeProduct
+                      title={"V1"}
+                      name={"Máy phát điện"}
+                      detail={"X1"}
+                      price={"2000"}
+                      number={1}
+                    />
                   </div>
                 </div>
               </div>

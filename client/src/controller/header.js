@@ -25,7 +25,7 @@ export default function Headers() {
       if (storedJsonArray) {
         const storedArray = JSON.parse(storedJsonArray);
 
-        setCustomCount(storedArray.length - 1);
+        setCustomCount(storedArray.length);
       }
     }
   }, []);

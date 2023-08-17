@@ -89,7 +89,7 @@ export default function mgproduct() {
 
   const delProduct = async (dataId) => {
     await axios.post("http://localhost:5000/product/delete", { dataId });
-    console.log(123);
+
     setallData((prevData) => prevData.filter((item) => item._id !== dataId));
   };
 

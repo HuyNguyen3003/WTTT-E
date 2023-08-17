@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
     if (typeof window !== "undefined") {
       const storedCount = localStorage.getItem("count");
       if (!storedCount) {
-        localStorage.setItem("count", `[{"id":"-1"}]`);
+        localStorage.setItem("count", `[]`);
       }
     }
   }, []);

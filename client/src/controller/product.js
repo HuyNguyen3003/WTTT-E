@@ -3,6 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styled from "styled-components";
 import Link from "next/link";
+
 export default function Product(props) {
   const responsive = {
     desktop: {
@@ -18,45 +19,9 @@ export default function Product(props) {
       items: 1,
     },
   };
-
-  const products = [
-    {
-      name: "Product 1",
-      image: "/img/product1.jpg",
-      pricex: "$10",
-      pricey: "$8",
-    },
-    {
-      name: "Product 2",
-      image: "/img/product2.jpg",
-      pricex: "$20",
-      pricey: "$18",
-    },
-    {
-      name: "Product 3",
-      image: "/img/product3.jpg",
-      pricex: "$15",
-      pricey: "$13",
-    },
-    {
-      name: "Product 4",
-      image: "/img/product4.jpg",
-      pricex: "$25",
-      pricey: "$22",
-    },
-    {
-      name: "Product 5",
-      image: "/img/product5.jpg",
-      pricex: "$25",
-      pricey: "$20",
-    },
-    {
-      name: "Product 6",
-      image: "/img/product6.jpg",
-      pricex: "$25",
-      pricey: "$17",
-    },
-  ];
+  const ImageComponent = ({ base64Data }) => {
+    return <img src={base64Data} alt="Base64 Image" />;
+  };
 
   return (
     <Container className=" pt-10 px-20  ">
@@ -80,26 +45,27 @@ export default function Product(props) {
         itemClass="w-2/4 mx-auto carousel-item-padding-40-px"
         className=" border-t-2 border-b-2  shadow-md"
       >
-        {products.map((product, index) => (
-          <div key={index} className="p-8 cursor-pointer ">
-            <Link
-              href="/product/id"
-              className="text-black"
-              style={{ textDecoration: "none" }}
-            >
-              <div className="border-l-2 border-r-2 border-red">
-                <img src={product.image} alt={product.name} />
-                <p className="flex justify-center">{product.name} </p>
-                <div className="flex justify-center line-through">
-                  {product.pricex}
-                </div>
-                <div className="flex justify-center font-bold text-red-500">
-                  {product.pricey}
-                </div>
+        {props.data &&
+          props.data.length > 0 &&
+          props.data.map((item, index) => {
+            return (
+              <div key={index} className="p-8 cursor-pointer">
+                <Link
+                  href={`/product/${props.indexArrProduct}-${index}-${item._id}`}
+                  className="text-black"
+                  style={{ textDecoration: "none" }}
+                >
+                  <div className="border-l-2 border-r-2 border-red">
+                    <ImageComponent base64Data={item.img} />
+                    <p className="flex justify-center">{item.name} </p>
+                    <div className="flex justify-center">
+                      {item.details[0].price}
+                    </div>
+                  </div>
+                </Link>
               </div>
-            </Link>
-          </div>
-        ))}
+            );
+          })}
       </Carousel>
     </Container>
   );

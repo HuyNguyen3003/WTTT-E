@@ -1,50 +1,87 @@
-import React, { useEffect } from "react";
-import Image from "next/image";
-import Product from "../../controller/product";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import store from "../../store/store";
 import { useSelector, useDispatch, Provider } from "react-redux";
+import { useRouter } from "next/router";
 
 export default function DetailProduct(props) {
   //
+
+  let [storedJsonArray, setstoredJsonArray] = useState([]);
+  let [dataPageId, setdataPageId] = useState([]);
+  let [selecType, setselecType] = useState(0);
+
+  const router = useRouter();
+  const { id } = router.query;
+
+  const handleIdLink = () => {
+    const splitStrings = id.split("-");
+    if (splitStrings.length === 3) {
+      return splitStrings;
+    }
+  };
+
   const dispatch = useDispatch();
   const setCustomCount = () => {
     dispatch({ type: "INCREMENT" });
   };
-  const storedJsonArray = localStorage.getItem("count");
-  let arr = [];
+
+  const allProduct = useSelector((state) => state.product);
+
+  useEffect(() => {
+    const setArr = handleIdLink();
+    if (typeof window !== "undefined") {
+      setstoredJsonArray(localStorage.getItem("count"));
+    }
+    setdataPageId(allProduct[setArr[0]].products[setArr[1]]);
+  }, []);
+
   const handleAddProduct = () => {
-    arr = JSON.parse(storedJsonArray);
-    arr.push({ id: 1 });
+    let arr = JSON.parse(storedJsonArray);
+    arr.push({ id: id, number: 1 });
     const updatedJsonArray = JSON.stringify(arr);
     localStorage.setItem("count", updatedJsonArray);
     setCustomCount();
   };
+  const ImageComponent = ({ base64Data }) => {
+    return <img src={base64Data} alt="Base64 Image" />;
+  };
 
-  const detectDeviceType = () =>
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-      ? "Mobile"
-      : "Desktop";
   return (
     <>
       <div className="container mx-auto p-4 pt-16">
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 pl-16">
-            <Image
-              src="/img/product1.jpg"
-              alt="Product Image"
-              width={400}
-              height={400}
-            />
+          <div className="md:w-1/3 p-16">
+            <ImageComponent base64Data={dataPageId.img} />
           </div>
           <div className="md:w-1/2 py-4">
             <h1 className="text-xl font-semibold mb-2">
-              ĐỘNG CƠ MOTOR ĐIỆN 1 PHA- 2800RPM
+              {dataPageId && dataPageId.details
+                ? dataPageId.details[selecType].name
+                : "Loading"}
             </h1>
-            <p className="text-gray-600">Mô tả sản phẩm...</p>
-            <div className="text-2xl font-bold mt-4">Giá: Liên hệ</div>
+            <div>
+              {dataPageId &&
+                dataPageId.details &&
+                dataPageId.details.map((item, index) => {
+                  return (
+                    <div>
+                      <button
+                        class="bg-blue-300 p-2 rounded-lg shadow-md focus:outline-none my-4"
+                        onClick={() => setselecType(index)}
+                      >
+                        <h2 class="text-lg font-semibold">{item.name}</h2>
+                        <p class="mt-2">{item.details}</p>
+                      </button>
+                    </div>
+                  );
+                })}
+            </div>
+            <div className="text-2xl font-bold mt-4">
+              Giá:
+              {dataPageId && dataPageId.details && dataPageId.details.length > 0
+                ? dataPageId.details[selecType].price
+                : "Loading"}
+            </div>
             <Link href={"/product/buy"}>
               <button
                 onClick={handleAddProduct}
@@ -80,13 +117,6 @@ export default function DetailProduct(props) {
             các sản phẩm máy bơm nước chất lượng từ Đức - Adelino.
           </p>
         </div>
-      </div>
-      <div>
-        <Product
-          className="flex justify-center items-center"
-          deviceType={detectDeviceType}
-          name={"Sản phẩm cùng loại"}
-        />
       </div>
     </>
   );

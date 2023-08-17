@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios, { all } from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function MyComponent() {
+  const [dataProduct, setdataProduct] = useState([]);
   //
   const allProduct = useSelector((state) => state.product);
   const allPage = useSelector((state) => state.page);
@@ -41,13 +42,13 @@ export default function MyComponent() {
     ];
 
     allProduct.forEach((item) => {
-      const { _id, title, name, img, detals } = item;
+      let { _id, title, name, img, details } = item;
+
       const product = {
         _id,
-        title,
-        name: name.slice(3),
+        name: name,
         img,
-        details: detals,
+        details: details,
       };
 
       const productTitleIndex = productsByTitle.findIndex(
@@ -63,15 +64,18 @@ export default function MyComponent() {
 
   const getAllData = async () => {
     const resProduct = await axios.get("http://localhost:5000/product");
-    const resPage = await axios.get("http://localhost:5000/page");
-    setProduct(handleProduct(resProduct.data));
-    setPage(resPage.data);
-  };
+    if (resProduct.data && Array.isArray(resProduct.data)) {
+      setdataProduct(handleProduct(resProduct.data));
+      setProduct(handleProduct(resProduct.data));
+    }
 
+    //const resPage = await axios.get("http://localhost:5000/page");
+    //setPage(resPage.data);
+  };
+  //console.log(dataProduct, "dataProduct");
   useEffect(() => {
     getAllData();
   }, []);
-  console.log(allProduct);
 
   const detectDeviceType = () =>
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -112,14 +116,16 @@ export default function MyComponent() {
             <img src="/img/87cpIkbEsTKUi.jpg!w700wp" />
           </div>
           <div className="w-4/5 h-1/2">
-            {allProduct &&
-              allProduct.length > 0 &&
-              allProduct.map((item, index) => {
+            {dataProduct &&
+              dataProduct.length > 0 &&
+              dataProduct.map((item, index) => {
                 return (
                   <Product
-                    className=" flex justify-center items-center"
+                    className="flex justify-center items-center"
                     deviceType={detectDeviceType}
                     name={`${item.title.slice(3)}`}
+                    data={item.products}
+                    indexArrProduct={index}
                   />
                 );
               })}
