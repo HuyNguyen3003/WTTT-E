@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import BuyTypeProduct from "../../controller/buyTypeProduct";
 import MyCustomAlert from "../../controller/alert";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
 
 export default function BuyProduct() {
   const [name, setname] = useState("");
@@ -45,23 +44,22 @@ export default function BuyProduct() {
       await axios.post("http://localhost:5000/product/sendmailBuy", data);
     }
   };
-  const allProduct = useSelector((state) => state.product);
-  const handleIdLink = () => {
-    const splitStrings = id.split("-");
-    if (splitStrings.length === 3) {
-      return splitStrings;
-    }
+
+  const updateNumberProduct = (index, newNumber) => {
+    let arrTemp = [...cartProduct];
+
+    arrTemp[index].number = newNumber;
+    setcartProduct(arrTemp);
   };
 
   useEffect(() => {
-    let cartProduct;
+    let cartProduct = [];
     if (typeof window !== "undefined") {
       cartProduct = localStorage.getItem("count");
       cartProduct = JSON.parse(cartProduct);
+      setcartProduct(cartProduct);
     }
-    setcartProduct(cartProduct);
   }, []);
-  console.log(cartProduct);
 
   return (
     <>
@@ -83,33 +81,38 @@ export default function BuyProduct() {
           <div className="mx-20 col-span-2 bg-gray-200 p-4">
             <div className="flex flex-col">
               <div className="mb-2">
-                <strong>Số lượng loại sản phẩm : {cartProduct.length} </strong>
+                <strong>
+                  Số lượng loại sản phẩm :{cartProduct ? cartProduct.length : 0}{" "}
+                </strong>
               </div>
               <hr className="py-2" />
               <div className="h-screen flex  bg-gray-100">
-                <div className="w-full  p-4 border rounded-lg bg-white overflow-y-auto">
+                <div className="  p-4 border rounded-lg bg-white overflow-y-auto">
                   <div className="space-y-2">
-                    <BuyTypeProduct
-                      title={"V1"}
-                      name={"Máy phát điện"}
-                      detail={"X1"}
-                      price={"2000"}
-                      number={1}
-                    />
-                    <BuyTypeProduct
-                      title={"V1"}
-                      name={"Máy phát điện"}
-                      detail={"X1"}
-                      price={"2000"}
-                      number={1}
-                    />
+                    {cartProduct && cartProduct.length > 0
+                      ? cartProduct.map((item, index) => {
+                          return (
+                            <BuyTypeProduct
+                              key={index}
+                              title={item.title}
+                              name={item.detail.name}
+                              detail={item.detail.details}
+                              price={item.detail.price}
+                              number={item.number}
+                              img={item.img}
+                              index={index}
+                              update={updateNumberProduct}
+                            />
+                          );
+                        })
+                      : "Loading..."}
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mx-10 px-10 col-span-3 bg-gray-300 p-4">
+          <div className="w-full mx-10 px-10 col-span-3 bg-gray-300 p-4">
             <div className="flex">
               <div className="px-40">
                 <h1 className="text-2xl font-semibold mb-4">

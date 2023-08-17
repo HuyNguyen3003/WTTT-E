@@ -51,7 +51,7 @@ export default function Product(props) {
             return (
               <div key={index} className="p-8 cursor-pointer">
                 <Link
-                  href={`/product/${props.indexArrProduct}-${index}-${item._id}`}
+                  href={`/product/${item._id}`}
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >

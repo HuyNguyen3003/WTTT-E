@@ -153,7 +153,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/product"
+                  href="/product?type=V2"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -163,7 +163,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/product"
+                  href="/product?type=V3"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -173,7 +173,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/product"
+                  href="/product?type=V4"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >

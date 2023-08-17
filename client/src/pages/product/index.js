@@ -1,68 +1,68 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import ProductCard from "../../controller/card";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { useRouter } from "next/router";
 export default function Products() {
-  const detectDeviceType = () =>
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-      ? "Mobile"
-      : "Desktop";
+  const [dataProduct, setdataProduct] = useState([]);
+  const router = useRouter();
+  let { type } = router.query;
+  type = type.slice(1) - 1;
 
-  const products = [
-    {
-      id: 1,
-      name: "Máy móc 1",
-      description: "Mô tả sản phẩm máy móc 1",
-      price: 1000,
-      image: "link_to_image_1.jpg",
-    },
-    {
-      id: 2,
-      name: "Máy móc 2",
-      description: "Mô tả sản phẩm máy móc 2",
-      price: 1500,
-      image: "link_to_image_2.jpg",
-    },
-    {
-      id: 2,
-      name: "Máy móc 2",
-      description: "Mô tả sản phẩm máy móc 2",
-      price: 1500,
-      image: "link_to_image_2.jpg",
-    },
-    {
-      id: 2,
-      name: "Máy móc 2",
-      description: "Mô tả sản phẩm máy móc 2",
-      price: 1500,
-      image: "link_to_image_2.jpg",
-    },
-    {
-      id: 2,
-      name: "Máy móc 2",
-      description: "Mô tả sản phẩm máy móc 2",
-      price: 1500,
-      image: "link_to_image_2.jpg",
-    },
-    {
-      id: 2,
-      name: "Máy móc 2",
-      description: "Mô tả sản phẩm máy móc 2",
-      price: 1500,
-      image: "link_to_image_2.jpg",
-    },
-    {
-      id: 2,
-      name: "Máy móc 2",
-      description: "Mô tả sản phẩm máy móc 2",
-      price: 1500,
-      image: "link_to_image_2.jpg",
-    },
-    // Add more products here...
-  ];
+  const handleProduct = (allProduct) => {
+    const productsByTitle = [
+      {
+        title: "x1: Motor",
+        products: [],
+      },
+      {
+        title: "x2: Máy Bơm Nước",
+        products: [],
+      },
+      {
+        title: "x3: Máy Phát Điện",
+        products: [],
+      },
+      {
+        title: "x4: Phụ Tùng",
+        products: [],
+      },
+    ];
+
+    allProduct.forEach((item) => {
+      let { _id, title, name, img, details } = item;
+
+      const product = {
+        _id,
+        name: name,
+        img,
+        details: details,
+      };
+
+      const productTitleIndex = productsByTitle.findIndex(
+        (item) => item.title === title
+      );
+      if (productTitleIndex !== -1) {
+        productsByTitle[productTitleIndex].products.push(product);
+      }
+    });
+
+    return productsByTitle;
+  };
+  const getAllData = async () => {
+    const resProduct = await axios.get("http://localhost:5000/product");
+    if (resProduct.data && Array.isArray(resProduct.data)) {
+      setdataProduct(handleProduct(resProduct.data));
+    }
+  };
+
+  useEffect(() => {
+    getAllData();
+  }, []);
+  console.log(type);
+
   return (
     <>
       <Head>
@@ -74,7 +74,7 @@ export default function Products() {
         />
       </Head>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <span className="text-red-600 flex text-xl justify-center p-5 ml-48 mr-48  mt-10 mb-10 hover:text-blue-800 hover:text-2xl transition duration-300 ease-in-out transform hover:scale-105">
+        <span className="text-red-600 flex text-2xl justify-center p-5 ml-48 mr-48  mt-10 mb-10 ">
           LIÊN HỆ
         </span>
 
@@ -82,20 +82,22 @@ export default function Products() {
           <img className="" src="/img/87cpIkbEsTKUi.jpg!w700wp" />
           <div className=" w-3/5 mx-20 ">
             <div className="flex flex-wrap -mx-4">
-              {products.map((product) => (
-                <div
-                  key={product.id}
-                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-4 mb-4"
-                >
-                  <Link
-                    href={`/product/type?=123/name?=123`}
-                    className="text-black"
-                    style={{ textDecoration: "none" }}
+              {dataProduct &&
+                dataProduct.length > 0 &&
+                dataProduct[type].products.map((item, index) => (
+                  <div
+                    key={index}
+                    className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-4 mb-4"
                   >
-                    <ProductCard className="m-10" product={product} />
-                  </Link>
-                </div>
-              ))}
+                    <Link
+                      href={`/product/${item._id}`}
+                      className="text-black"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <ProductCard className="m-10" product={item} />
+                    </Link>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

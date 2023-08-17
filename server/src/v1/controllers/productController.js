@@ -2,9 +2,18 @@ let productServices = require("../services/productServices");
 
 let getAll = async (req, res) => {
   try {
+    const respone = await productServices.getAll();
+    if (respone) return res.json(respone);
+    else return res.json("fail");
+  } catch (e) {
+    console.log(e);
+  }
+};
+let getId = async (req, res) => {
+  try {
     const data = req.body;
 
-    const respone = await productServices.getAll();
+    const respone = await productServices.getId(data._id);
     if (respone) return res.json(respone);
     else return res.json("fail");
   } catch (e) {
@@ -52,4 +61,5 @@ module.exports = {
   update,
   Delete,
   sendMail,
+  getId,
 };

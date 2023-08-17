@@ -5,21 +5,10 @@ import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
 import Product from "../controller/product";
 import { motion } from "framer-motion";
-import { useSelector, useDispatch } from "react-redux";
 
 export default function MyComponent() {
   const [dataProduct, setdataProduct] = useState([]);
   //
-  const allProduct = useSelector((state) => state.product);
-  const allPage = useSelector((state) => state.page);
-
-  const dispatch = useDispatch();
-  const setProduct = (product) => {
-    dispatch({ type: "SET_PRODUCT", payload: product });
-  };
-  const setPage = (page) => {
-    dispatch({ type: "SET_PAGE", payload: page });
-  };
 
   const handleProduct = (allProduct) => {
     const productsByTitle = [
@@ -66,13 +55,9 @@ export default function MyComponent() {
     const resProduct = await axios.get("http://localhost:5000/product");
     if (resProduct.data && Array.isArray(resProduct.data)) {
       setdataProduct(handleProduct(resProduct.data));
-      setProduct(handleProduct(resProduct.data));
     }
-
-    //const resPage = await axios.get("http://localhost:5000/page");
-    //setPage(resPage.data);
   };
-  //console.log(dataProduct, "dataProduct");
+
   useEffect(() => {
     getAllData();
   }, []);

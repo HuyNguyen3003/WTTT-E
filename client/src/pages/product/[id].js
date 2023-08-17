@@ -1,46 +1,41 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useSelector, useDispatch, Provider } from "react-redux";
+import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function DetailProduct(props) {
   //
 
-  let [storedJsonArray, setstoredJsonArray] = useState([]);
   let [dataPageId, setdataPageId] = useState([]);
   let [selecType, setselecType] = useState(0);
 
   const router = useRouter();
   const { id } = router.query;
 
-  const handleIdLink = () => {
-    const splitStrings = id.split("-");
-    if (splitStrings.length === 3) {
-      return splitStrings;
-    }
+  const CallDataPage = async () => {
+    const res = await axios.post("http://localhost:5000/productId", {
+      _id: id,
+    });
+    setdataPageId(res.data);
   };
-
-  const dispatch = useDispatch();
-  const setCustomCount = () => {
-    dispatch({ type: "INCREMENT" });
-  };
-
-  const allProduct = useSelector((state) => state.product);
 
   useEffect(() => {
-    const setArr = handleIdLink();
-    if (typeof window !== "undefined") {
-      setstoredJsonArray(localStorage.getItem("count"));
-    }
-    setdataPageId(allProduct[setArr[0]].products[setArr[1]]);
-  }, []);
+    CallDataPage();
+  });
 
   const handleAddProduct = () => {
+    let storedJsonArray = [];
+    storedJsonArray = localStorage.getItem("count");
     let arr = JSON.parse(storedJsonArray);
-    arr.push({ id: id, number: 1 });
+    arr.push({
+      id: id,
+      number: 1,
+      detail: dataPageId.details[selecType],
+      img: dataPageId.img,
+      title: dataPageId.name,
+    });
     const updatedJsonArray = JSON.stringify(arr);
     localStorage.setItem("count", updatedJsonArray);
-    setCustomCount();
   };
   const ImageComponent = ({ base64Data }) => {
     return <img src={base64Data} alt="Base64 Image" />;
@@ -64,7 +59,7 @@ export default function DetailProduct(props) {
                 dataPageId.details &&
                 dataPageId.details.map((item, index) => {
                   return (
-                    <div>
+                    <div key={index}>
                       <button
                         class="bg-blue-300 p-2 rounded-lg shadow-md focus:outline-none my-4"
                         onClick={() => setselecType(index)}

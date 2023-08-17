@@ -11,6 +11,18 @@ let getAll = async () => {
   });
 };
 
+let getId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log(id);
+      const res = await product.findById(id);
+      resolve(res);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let update = async (data) => {
   // console.log(data);
   try {
@@ -55,4 +67,4 @@ let Delete = async (id) => {
     }
   });
 };
-module.exports = { getAll, update, Delete };
+module.exports = { getAll, update, Delete, getId };
