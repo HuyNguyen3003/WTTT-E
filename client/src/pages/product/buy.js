@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import BuyTypeProduct from "../../controller/buyTypeProduct";
 import MyCustomAlert from "../../controller/alert";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 export default function BuyProduct() {
   const [name, setname] = useState("");
@@ -13,6 +14,15 @@ export default function BuyProduct() {
   const [detail, setdetail] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [cartProduct, setcartProduct] = useState([]);
+
+  //
+  const dispatch = useDispatch();
+  const setCustomCount = () => {
+    dispatch({ type: "DECREMENT" });
+  };
+  const DoneBuy = () => {
+    dispatch({ type: "SET_COUNT", payload: 0 });
+  };
 
   const handleChangleInput = async () => {
     if (!name || !email || !phone || !address || !detail) {
@@ -40,16 +50,39 @@ export default function BuyProduct() {
       setaddress("");
       setphone("");
       setdetail("");
-      const data = { name, phone, email, address, detail };
+      const data = { name, phone, email, address, detail, cartProduct };
       await axios.post("http://localhost:5000/product/sendmailBuy", data);
+      setcartProduct([]);
+      localStorage.setItem("count", "[]");
+      DoneBuy();
     }
   };
 
   const updateNumberProduct = (index, newNumber) => {
     let arrTemp = [...cartProduct];
-
     arrTemp[index].number = newNumber;
     setcartProduct(arrTemp);
+    confirmProduct(cartProduct);
+  };
+
+  const deleteProduct = async (index) => {
+    setCustomCount();
+
+    let arrTemp = [...cartProduct];
+    arrTemp.splice(index, 1);
+    setcartProduct(arrTemp);
+    confirmProduct(arrTemp);
+  };
+
+  const confirmProduct = (data) => {
+    if (typeof window !== "undefined") {
+      if (data.length === 0) {
+        localStorage.setItem("count", "[]");
+        return;
+      }
+      const updatedJsonArray = JSON.stringify(data);
+      localStorage.setItem("count", updatedJsonArray);
+    }
   };
 
   useEffect(() => {
@@ -102,10 +135,12 @@ export default function BuyProduct() {
                               img={item.img}
                               index={index}
                               update={updateNumberProduct}
+                              detele={deleteProduct}
+                              confirm={confirmProduct}
                             />
                           );
                         })
-                      : "Loading..."}
+                      : "Chưa có đơn hàng"}
                   </div>
                 </div>
               </div>

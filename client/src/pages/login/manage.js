@@ -15,7 +15,7 @@ export default function index() {
     if (!localStorage.getItem("login")) {
       router.push("/login");
     }
-  });
+  }, []);
 
   return (
     <>

@@ -23,6 +23,14 @@ export default function BuyTypeProduct(props) {
       </div>
 
       <div>
+        <div class="flex">
+          <button
+            class="mr-2 bg-blue-500 text-white px-2  rounded"
+            onClick={() => props.detele(props.index)}
+          >
+            X
+          </button>
+        </div>
         <strong>Loại sản phẩm:</strong> {props.title} <br />
         <strong>Tên sản phẩm:</strong>
         {props.name}

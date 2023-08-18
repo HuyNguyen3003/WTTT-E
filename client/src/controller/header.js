@@ -143,7 +143,7 @@ export default function Headers() {
                 }   `}
               >
                 <Link
-                  href="/product?type=V1"
+                  href="/product?type=0"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -153,7 +153,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/product?type=V2"
+                  href="/product?type=1"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -163,7 +163,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/product?type=V3"
+                  href="/product?type=2"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -173,7 +173,7 @@ export default function Headers() {
                   <hr />
                 </Link>
                 <Link
-                  href="/product?type=V4"
+                  href="/product?type=3"
                   className="text-black"
                   style={{ textDecoration: "none" }}
                 >
@@ -198,7 +198,7 @@ export default function Headers() {
           </div>
           <div className="w-1/3  bg-white p-2 flex justify-center items-center">
             <Link
-              href="/gioithieu"
+              href="/page?type=0"
               className="text-black"
               style={{ textDecoration: "none" }}
             >
@@ -221,7 +221,7 @@ export default function Headers() {
 
           <div className="w-1/3 bg-white p-2 flex justify-center items-center">
             <Link
-              href="/tintuc"
+              href="/page?type=1"
               className="text-black"
               style={{ textDecoration: "none" }}
             >
@@ -233,7 +233,7 @@ export default function Headers() {
 
           <div className="w-1/3  bg-white p-2 flex justify-center items-center">
             <Link
-              href="/tuyendung"
+              href="/page?type=2"
               className="text-black"
               style={{ textDecoration: "none" }}
             >

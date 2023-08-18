@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function DetailProduct(props) {
   //
 
   let [dataPageId, setdataPageId] = useState([]);
   let [selecType, setselecType] = useState(0);
+  const dispatch = useDispatch();
+  const setCustomCount = () => {
+    dispatch({ type: "INCREMENT" });
+  };
 
   const router = useRouter();
   const { id } = router.query;
@@ -21,7 +26,7 @@ export default function DetailProduct(props) {
 
   useEffect(() => {
     CallDataPage();
-  });
+  }, [id]);
 
   const handleAddProduct = () => {
     let storedJsonArray = [];
@@ -35,6 +40,7 @@ export default function DetailProduct(props) {
       title: dataPageId.name,
     });
     const updatedJsonArray = JSON.stringify(arr);
+    setCustomCount();
     localStorage.setItem("count", updatedJsonArray);
   };
   const ImageComponent = ({ base64Data }) => {

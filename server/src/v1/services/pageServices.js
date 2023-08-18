@@ -55,4 +55,16 @@ let Delete = async (id) => {
     }
   });
 };
-module.exports = { getAll, update, Delete };
+
+let getId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log(id);
+      const res = await page.findById(id);
+      resolve(res);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+module.exports = { getAll, update, Delete, getId };

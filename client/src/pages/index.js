@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios, { all } from "axios";
+import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
@@ -100,9 +100,9 @@ export default function MyComponent() {
             <img src="/img/87cpIkbEsTKUi.jpg!w700wp" />
             <img src="/img/87cpIkbEsTKUi.jpg!w700wp" />
           </div>
+
           <div className="w-4/5 h-1/2">
-            {dataProduct &&
-              dataProduct.length > 0 &&
+            {dataProduct && dataProduct.length > 0 ? (
               dataProduct.map((item, index) => {
                 return (
                   <Product
@@ -113,7 +113,10 @@ export default function MyComponent() {
                     indexArrProduct={index}
                   />
                 );
-              })}
+              })
+            ) : (
+              <div className="text-xl font-bold mb-2">Loading</div>
+            )}
           </div>
         </div>
       </motion.div>
