@@ -34,7 +34,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (username && password) {
-      const res = await axios.post("http://localhost:80/login", {
+      const res = await axios.post("https://wttt-3.onrender.com/login", {
         username,
         password,
       });

@@ -18,7 +18,7 @@ export default function DetailProduct(props) {
   const { id } = router.query;
 
   const CallDataPage = async () => {
-    const res = await axios.post("http://localhost:80/productId", {
+    const res = await axios.post("https://wttt-3.onrender.com/productId", {
       _id: id,
     });
     setdataPageId(res.data);

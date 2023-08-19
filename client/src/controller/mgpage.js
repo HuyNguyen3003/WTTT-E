@@ -14,7 +14,7 @@ export default function mgpage() {
 
   // get data page
   const handUseE = async () => {
-    const res = await axios.get("http://localhost:5000/page");
+    const res = await axios.get("https://wttt-3.onrender.com/page");
     setallData(res.data);
   };
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function mgpage() {
       formData.img = await selectedImage;
 
       const res = await axios.post(
-        "http://localhost:5000/page/update",
+        "https://wttt-3.onrender.com/page/update",
         formData
       );
 
@@ -102,7 +102,7 @@ export default function mgpage() {
 
   // del data
   const delProduct = async (dataId) => {
-    await axios.post("http://localhost:5000/page/delete", { dataId });
+    await axios.post("https://wttt-3.onrender.com/page/delete", { dataId });
 
     setallData((prevData) => prevData.filter((item) => item._id !== dataId));
   };
@@ -120,7 +120,7 @@ export default function mgpage() {
         detail: detailtemp, // Sử dụng giá trị đã lưu
       };
 
-      await axios.post("http://localhost:5000/page/update", data);
+      await axios.post("https://wttt-3.onrender.com/page/update", data);
       let arr = allData;
 
       arr[index].detail = detailtemp;

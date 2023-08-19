@@ -15,7 +15,7 @@ export default function detailPage() {
   }, [id]);
 
   const CallDataPage = async () => {
-    const res = await axios.post("http://localhost:80/pageId", {
+    const res = await axios.post("https://wttt-3.onrender.com/pageId", {
       _id: id,
     });
     setdataPage(res.data);

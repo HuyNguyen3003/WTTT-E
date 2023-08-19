@@ -51,7 +51,7 @@ export default function BuyProduct() {
       setphone("");
       setdetail("");
       const data = { name, phone, email, address, detail, cartProduct };
-      await axios.post("http://localhost:80/product/sendmailBuy", data);
+      await axios.post("https://wttt-3.onrender.com/product/sendmailBuy", data);
       setcartProduct([]);
       localStorage.setItem("count", "[]");
       DoneBuy();
