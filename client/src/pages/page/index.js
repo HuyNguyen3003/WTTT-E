@@ -53,7 +53,7 @@ export default function GioiThieu() {
     return productsByTitle;
   };
   const callData = async () => {
-    const res = await axios.get("http://localhost:5000/page");
+    const res = await axios.get("http://localhost:80/page");
     setdataPage(handleProduct(res.data));
   };
   useEffect(() => {

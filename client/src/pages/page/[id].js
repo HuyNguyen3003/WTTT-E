@@ -15,7 +15,7 @@ export default function detailPage() {
   }, [id]);
 
   const CallDataPage = async () => {
-    const res = await axios.post("http://localhost:5000/pageId", {
+    const res = await axios.post("http://localhost:80/pageId", {
       _id: id,
     });
     setdataPage(res.data);

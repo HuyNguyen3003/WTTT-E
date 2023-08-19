@@ -11,7 +11,7 @@ export default function mgproduct() {
   let [stringObject, setstringObject] = useState("");
 
   const handUseE = async () => {
-    const res = await axios.get("http://localhost:5000/product");
+    const res = await axios.get("http://localhost:80/product");
     setallData(res.data);
   };
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function mgproduct() {
       formData.img = await selectedImage;
 
       const res = await axios.post(
-        "http://localhost:5000/product/update",
+        "http://localhost:80/product/update",
         formData
       );
 
@@ -88,7 +88,7 @@ export default function mgproduct() {
   });
 
   const delProduct = async (dataId) => {
-    await axios.post("http://localhost:5000/product/delete", { dataId });
+    await axios.post("http://localhost:80/product/delete", { dataId });
 
     setallData((prevData) => prevData.filter((item) => item._id !== dataId));
   };
@@ -140,7 +140,7 @@ export default function mgproduct() {
     data.title = item.title;
     data.details = handleStringToObject(stringObject);
 
-    await axios.post("http://localhost:5000/product/update", data);
+    await axios.post("http://localhost:80/product/update", data);
     let arr = allData;
     arr[index].details = handleStringToObject(stringObject);
   };

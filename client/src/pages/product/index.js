@@ -51,7 +51,7 @@ export default function Products() {
     return productsByTitle;
   };
   const getAllData = async () => {
-    const resProduct = await axios.get("http://localhost:5000/product");
+    const resProduct = await axios.get("http://localhost:80/product");
     if (resProduct.data && Array.isArray(resProduct.data)) {
       setdataProduct(handleProduct(resProduct.data));
     }
