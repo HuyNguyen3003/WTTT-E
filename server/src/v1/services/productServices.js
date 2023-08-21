@@ -14,7 +14,6 @@ let getAll = async () => {
 let getId = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(id);
       const res = await product.findById(id);
       resolve(res);
     } catch (e) {

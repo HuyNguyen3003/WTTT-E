@@ -60,7 +60,6 @@ export default function Products() {
   useEffect(() => {
     getAllData();
   }, []);
-  console.log(type);
 
   return (
     <>

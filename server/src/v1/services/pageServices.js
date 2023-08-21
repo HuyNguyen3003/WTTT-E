@@ -24,9 +24,6 @@ let update = async (data) => {
       const savedProduct = await newProduct.save();
       return savedProduct;
     } else {
-      // Nếu có data.id, cập nhật bản ghi hiện có
-      // console.log(data, "-----");
-
       const updatedPage = await page.findByIdAndUpdate(
         data._id,
         {
