@@ -119,7 +119,7 @@ export default function mgactivi() {
                         <Link
                           className=""
                           target="_blank"
-                          href={`http://api.qrserver.com/v1/create-qr-code/?data=https://wttt-p8tonzhdm-huynguyen3003.vercel.app/activi/${item._id}&size=500x500  `}
+                          href={`http://api.qrserver.com/v1/create-qr-code/?data=https://wttt-e-git-master-huynguyen3003.vercel.app/activi/${item._id}&size=500x500  `}
                         >
                           {item._id}
                         </Link>
