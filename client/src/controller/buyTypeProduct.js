@@ -8,7 +8,7 @@ export default function BuyTypeProduct(props) {
     setnumber(number + 1);
   };
   const handleMinus = () => {
-    if (number > 0) {
+    if (number > 1) {
       props.update(props.index, number - 1);
       setnumber(number - 1);
     }

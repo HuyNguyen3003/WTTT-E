@@ -5,6 +5,7 @@ import BuyTypeProduct from "../../controller/buyTypeProduct";
 import MyCustomAlert from "../../controller/alert";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
 
 export default function BuyProduct() {
   const [name, setname] = useState("");
@@ -14,6 +15,7 @@ export default function BuyProduct() {
   const [detail, setdetail] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [cartProduct, setcartProduct] = useState([]);
+  const [sumPrice, setsumPrice] = useState(0);
   // address
 
   const [provinces, setprovinces] = useState([]);
@@ -146,7 +148,19 @@ export default function BuyProduct() {
       }
       const updatedJsonArray = JSON.stringify(data);
       localStorage.setItem("count", updatedJsonArray);
+      sumPriceProduct();
     }
+  };
+
+  const sumPriceProduct = () => {
+    let temp = 0;
+
+    for (let i = 0; i < cartProduct.length; i++) {
+      temp +=
+        parseInt(cartProduct[i].detail.price.replace(/\./g, "")) *
+        cartProduct[i].number;
+    }
+    setsumPrice(temp);
   };
 
   useEffect(() => {
@@ -156,8 +170,9 @@ export default function BuyProduct() {
       cartProduct = localStorage.getItem("count");
       cartProduct = JSON.parse(cartProduct);
       setcartProduct(cartProduct);
+      sumPriceProduct();
     }
-  }, []);
+  }, [cartProduct.length]);
 
   return (
     <>
@@ -214,6 +229,7 @@ export default function BuyProduct() {
 
           <div className="w-full mx-10 col-span-3  py-10">
             <div className="">
+              <div></div>
               <div className="">
                 <h1 className="text-2xl font-semibold mb-4">
                   Điền thông tin mua hàng
@@ -372,7 +388,7 @@ export default function BuyProduct() {
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="address"
                       type="text"
-                      placeholder="Tên đường... số nhà"
+                      placeholder="Tên đường, số nhà"
                       value={address}
                       onChange={(e) => setaddress(e.target.value)}
                     />
@@ -399,12 +415,42 @@ export default function BuyProduct() {
                       htmlFor="data"
                     >
                       Tổng giá trị đơn hàng
+                      <div>
+                        (* Tạm tính sau khi gửi đơn hàng chúng tôi sẽ liên lạc
+                        để tính hình thức và cước phí vận chuyển)
+                      </div>
                     </label>
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="data"
-                      readOnly={123}
+                      readOnly
+                      value={sumPrice}
                     />
+                  </div>
+                  <div class="mb-4">
+                    <div class="font-semibold mb-2">
+                      Hình thức thanh toán: (Chọn sau khi điền đủ thông tin và
+                      sản phẩm )
+                    </div>
+                    <label class="flex items-center">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        class="form-radio h-5 w-5 text-indigo-600"
+                      />
+                      <span class="ml-2">Thanh toán trực tiếp</span>
+                      <Link href={`/product/qrBuy?id=${phone}/${sumPrice}`}>
+                        <span class="ml-2">(Nhấp để thanh toán)</span>
+                      </Link>
+                    </label>
+                    <label class="flex items-center">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        class="form-radio h-5 w-5 text-indigo-600"
+                      />
+                      <span class="ml-2">Thanh toán khi nhận hàng</span>
+                    </label>
                   </div>
 
                   <div className="flex items-center justify-center mt-4">
