@@ -10,19 +10,23 @@ export default function detailActivi() {
 
   const configData = async () => {
     const res = await axios.post("http://localhost:5000/activiId", { _id: id });
-    const data = res.data;
+    if (res.data && res.data.detail) {
+      const monthtemp = res.data.detail;
+      const data = res.data;
 
-    const currentTime = new Date();
+      const currentTime = new Date();
 
-    const day = currentTime.getDate();
-    const month = currentTime.getMonth() + 1;
-    const year = currentTime.getFullYear();
-    data.detail = ` Thời gian kích hoạt ${day}/${month}/${year}, thời gian kết thúc bảo hành sẽ sau thời gian kích hoạt ${res.data.detail} tháng `;
-    setdataPage(data);
+      const day = currentTime.getDate();
+      const month = currentTime.getMonth() + 1;
+      const year = currentTime.getFullYear();
+      data.detail = ` Thời gian kích hoạt bảo hành là ngày ${day}/${month}/${year}, thời gian kết thúc bảo hành sẽ sau thời gian kích hoạt ${monthtemp} tháng `;
+      setdataPage(data);
+    }
   };
   useEffect(() => {
     configData();
   }, [id]);
+  console.log(dataPage);
 
   const activied = async (ids) => {
     const res = await axios.post("http://localhost:5000/activi/create", {
@@ -33,7 +37,7 @@ export default function detailActivi() {
     setdataPage(res.data);
   };
 
-  return (
+  return dataPage && dataPage.customer ? (
     <div className="flex justify-center items-center">
       <div className="p-8 border border-gray-300 shadow-lg rounded-lg">
         <div className="mb-4 text-center">
@@ -57,6 +61,10 @@ export default function detailActivi() {
           dataPage.detail
         )}
       </div>
+    </div>
+  ) : (
+    <div className="flex justify-center items-center">
+      Không có thông tin đối với sản phẩm trên
     </div>
   );
 }

@@ -43,16 +43,18 @@ let create = async (data) => {
       const savedProduct = await newProduct.save();
       return savedProduct;
     } else {
-      const updatedPage = await activi.findByIdAndUpdate(
-        data._id,
-        {
-          activi: true,
-          detail: data.detail,
-        },
-        { new: true } // Lấy giá trị mới sau khi cập nhật
-      );
+      if (data.detail) {
+        const updatedPage = await activi.findByIdAndUpdate(
+          data._id,
+          {
+            activi: true,
+            detail: data.detail,
+          },
+          { new: true } // Lấy giá trị mới sau khi cập nhật
+        );
 
-      return updatedPage;
+        return updatedPage;
+      }
     }
   } catch (error) {
     throw error;

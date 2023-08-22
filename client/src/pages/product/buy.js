@@ -14,6 +14,62 @@ export default function BuyProduct() {
   const [detail, setdetail] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [cartProduct, setcartProduct] = useState([]);
+  // address
+
+  const [provinces, setprovinces] = useState([]);
+  const [districts, setdistricts] = useState([]);
+  const [wards, setwards] = useState([]);
+  const [showProvincesList, setshowProvincesList] = useState(false);
+  const [showDistrictsList, setshowDistrictsList] = useState(false);
+  const [showWardsList, setshowWardsList] = useState(false);
+
+  const [selectedAddress, setSelectedAddress] = useState(["", "", ""]);
+
+  const toggleProvincesList = () => {
+    setshowProvincesList(!showProvincesList);
+  };
+  const toggleDistrictsList = () => {
+    setshowDistrictsList(!showDistrictsList);
+  };
+  const toggleWardsList = () => {
+    setshowWardsList(!showWardsList);
+  };
+  const handleProvincesClick = async (name, code) => {
+    const data = selectedAddress;
+    data[0] = { name, code };
+    setSelectedAddress(data);
+    const res = await axios.get(
+      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
+    );
+    setdistricts(res.data.data.data);
+    toggleProvincesList();
+  };
+
+  const handleDistrictsClick = async (name, code) => {
+    const data = selectedAddress;
+    data[1] = { name, code };
+    setSelectedAddress(data);
+    const res = await axios.get(
+      `https://vn-public-apis.fpo.vn/wards/getByDistrict?districtCode=${code}&limit=-1`
+    );
+    setwards(res.data.data.data);
+    toggleDistrictsList();
+  };
+
+  const handleWardsClick = async (name, code, path) => {
+    const data = selectedAddress;
+    data[2] = { name, code, path };
+    setSelectedAddress(data);
+    toggleWardsList();
+  };
+
+  //
+  const callAddress = async () => {
+    const res = await axios.get(
+      "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
+    );
+    setprovinces(res.data.data.data);
+  };
 
   //
   const dispatch = useDispatch();
@@ -40,18 +96,26 @@ export default function BuyProduct() {
         alert("Vui lòng nhập lại số điện thoại");
         return;
       }
-      if (address.length < 10) {
+      if (address.length < 10 || !selectedAddress) {
         alert("Vui lòng nhập lại số địa chỉ");
         return;
       }
       setShowAlert(true);
+
+      const data = {
+        name,
+        phone,
+        email,
+        address: `${address} ${selectedAddress[2].path} `,
+        detail,
+        cartProduct,
+      };
+      await axios.post("https://wttt-3.onrender.com/product/sendmailBuy", data);
       setname("");
       setemail("");
       setaddress("");
       setphone("");
       setdetail("");
-      const data = { name, phone, email, address, detail, cartProduct };
-      await axios.post("https://wttt-3.onrender.com/product/sendmailBuy", data);
       setcartProduct([]);
       localStorage.setItem("count", "[]");
       DoneBuy();
@@ -86,6 +150,7 @@ export default function BuyProduct() {
   };
 
   useEffect(() => {
+    callAddress();
     let cartProduct = [];
     if (typeof window !== "undefined") {
       cartProduct = localStorage.getItem("count");
@@ -111,7 +176,7 @@ export default function BuyProduct() {
         </span>
 
         <div className=" flex ">
-          <div className="mx-20 col-span-2 bg-gray-200 p-4">
+          <div className="ml-5 col-span-2 bg-gray-200 p-4">
             <div className="flex flex-col">
               <div className="mb-2">
                 <strong>
@@ -147,14 +212,14 @@ export default function BuyProduct() {
             </div>
           </div>
 
-          <div className="w-full mx-10 px-10 col-span-3 bg-gray-300 p-4">
-            <div className="flex">
-              <div className="px-40">
+          <div className="w-full mx-10 col-span-3  py-10">
+            <div className="">
+              <div className="">
                 <h1 className="text-2xl font-semibold mb-4">
                   Điền thông tin mua hàng
                 </h1>
 
-                <form className="bg-white shadow-md rounded mx-10 pt-6 p-8 mb-12  w-full max-w-xl  ">
+                <form className="bg-white shadow-md rounded  pt-6 py-8 mb-12  w-full max-w-2xl  ">
                   <div className="mb-4">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
@@ -212,11 +277,102 @@ export default function BuyProduct() {
                     >
                       Địa chỉ
                     </label>
+
+                    <input
+                      type="text"
+                      placeholder="Thành phố"
+                      onClick={toggleProvincesList}
+                      value={selectedAddress[0].name}
+                      readOnly
+                      className="border rounded p-2 "
+                    />
+
+                    {showProvincesList && (
+                      <ul className="w-48  p-2 ">
+                        {provinces &&
+                          provinces.length > 0 &&
+                          provinces.map((item, index) => (
+                            <li
+                              className="w-48  p-2 "
+                              key={index}
+                              onClick={() =>
+                                handleProvincesClick(
+                                  item.name_with_type,
+                                  item.code
+                                )
+                              }
+                            >
+                              {item.name}
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+
+                    <input
+                      type="text"
+                      placeholder="Quận huyện"
+                      onClick={toggleDistrictsList}
+                      value={selectedAddress[1].name}
+                      readOnly
+                      className="border rounded p-2 "
+                    />
+                    {showDistrictsList && (
+                      <ul>
+                        {districts &&
+                          districts.length > 0 &&
+                          districts.map((item, index) => (
+                            <li
+                              className="w-48  p-2 "
+                              key={index}
+                              onClick={() =>
+                                handleDistrictsClick(
+                                  item.name_with_type,
+                                  item.code
+                                )
+                              }
+                            >
+                              {item.name}
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+
+                    <input
+                      type="text"
+                      placeholder="Thị trấn, xã"
+                      onClick={toggleWardsList}
+                      value={selectedAddress[2].name}
+                      readOnly
+                      className="border rounded p-2 "
+                    />
+                    {showWardsList && (
+                      <ul>
+                        {wards &&
+                          wards.length > 0 &&
+                          wards.map((item, index) => (
+                            <li
+                              className="w-48  p-2 "
+                              key={index}
+                              onClick={() =>
+                                handleWardsClick(
+                                  item.name_with_type,
+                                  item.code,
+                                  item.path_with_type
+                                )
+                              }
+                            >
+                              {item.name}
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+
+                    {/* detail address */}
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="address"
                       type="text"
-                      placeholder="Địa chỉ"
+                      placeholder="Tên đường... số nhà"
                       value={address}
                       onChange={(e) => setaddress(e.target.value)}
                     />
