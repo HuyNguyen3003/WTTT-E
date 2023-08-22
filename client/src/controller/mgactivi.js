@@ -13,7 +13,7 @@ export default function mgactivi() {
 
   // get data page
   const handUseE = async () => {
-    const res = await axios.get("http://localhost:5000/activi");
+    const res = await axios.get("https://wttt-3.onrender.com/activi");
     setallData(res.data);
   };
 
@@ -55,7 +55,7 @@ export default function mgactivi() {
       formData.detail = detail;
 
       const res = await axios.post(
-        "http://localhost:5000/activi/create",
+        "https://wttt-3.onrender.com/activi/create",
         formData
       );
       const arr = [...allData];
@@ -74,7 +74,9 @@ export default function mgactivi() {
 
   // del data
   const delProduct = async (dataId) => {
-    await axios.post("http://localhost:5000/activi/deleteId", { _id: dataId });
+    await axios.post("https://wttt-3.onrender.com/activi/deleteId", {
+      _id: dataId,
+    });
     setallData((prevData) => prevData.filter((item) => item._id !== dataId));
   };
 
@@ -117,7 +119,7 @@ export default function mgactivi() {
                         <Link
                           className=""
                           target="_blank"
-                          href={`http://api.qrserver.com/v1/create-qr-code/?data=http://localhost:3000/activi/${item._id}&size=500x500  `}
+                          href={`http://api.qrserver.com/v1/create-qr-code/?data=https://wttt-p8tonzhdm-huynguyen3003.vercel.app/activi/${item._id}&size=500x500  `}
                         >
                           {item._id}
                         </Link>

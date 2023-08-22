@@ -9,7 +9,9 @@ export default function detailActivi() {
   const id = router.query.id;
 
   const configData = async () => {
-    const res = await axios.post("http://localhost:5000/activiId", { _id: id });
+    const res = await axios.post("https://wttt-3.onrender.com/activiId", {
+      _id: id,
+    });
     if (res.data && res.data.detail) {
       const monthtemp = res.data.detail;
       const data = res.data;
@@ -29,7 +31,7 @@ export default function detailActivi() {
   console.log(dataPage);
 
   const activied = async (ids) => {
-    const res = await axios.post("http://localhost:5000/activi/create", {
+    const res = await axios.post("https://wttt-3.onrender.com/activi/create", {
       _id: ids,
       detail: dataPage.detail,
     });
